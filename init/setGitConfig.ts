@@ -44,7 +44,7 @@ export default function setGitConfig() {
     schema.properties.branch.description = colors.cyan(getLang(17))
     schema.properties.firstCommitMsg.description = colors.cyan(getLang(18))
     schema.properties.isPush.description = colors.cyan(getLang(22))
-    schema.properties.isPush.message = colors.cyan(getLang(23))
+    schema.properties.isPush.message = colors.reset(getLang(23))
 
     prompt.get(schema, (err: any, res: any) => {
       if (err) {

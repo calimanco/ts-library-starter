@@ -29,7 +29,7 @@ export default function setLanguage(langPkgList: LangPkgInfo[]) {
   console.groupEnd()
 
   schema.properties.lang.pattern = new RegExp(`[0-${maxIndex}]`)
-  schema.properties.lang.message = `Must respond 0 to ${maxIndex}`
+  schema.properties.lang.message = colors.reset(`Must respond 0 to ${maxIndex}`)
 
   return new Promise((resolve, reject) => {
     prompt.get(schema, function (err: any, res: any) {

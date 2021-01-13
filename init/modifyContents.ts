@@ -65,7 +65,7 @@ export default async function modifyContents(
 
   if (errMsg.length !== 0) {
     console.group(colors.underline.red(getLang(7)))
-    console.log(colors.white(errMsg.join('\n')))
+    console.log(colors.reset(errMsg.join('\n')))
     console.groupEnd()
     isFinish = false
   }

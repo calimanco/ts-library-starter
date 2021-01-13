@@ -76,7 +76,7 @@ async function main() {
     await setLanguage(langPkgList)
 
     // 欢迎语
-    console.log(colors.bold.yellow(`\n${getLang(0)}\n`))
+    console.log(colors.yellow.bold(`\n${getLang(0)}\n`))
 
     // 设置库名
     const { libraryName, description } = await setLibraryConfig(

@@ -53,7 +53,7 @@ export default async function initGit(
 
   if (errMsg.length !== 0) {
     console.group(colors.underline.red(getLang(20)))
-    console.log(colors.white(errMsg.join('\n')))
+    console.log(colors.reset(errMsg.join('\n')))
     console.groupEnd()
     isFinish = false
   }

@@ -25,7 +25,7 @@ export default function setLibraryName(defaultName: string) {
   return new Promise<{ libraryName: string; description: string }>(
     (resolve, reject) => {
       schema.properties.libraryName.description = colors.cyan(getLang(8))
-      schema.properties.libraryName.message = getLang(9)
+      schema.properties.libraryName.message = colors.reset(getLang(9))
       schema.properties.description.description = colors.cyan(getLang(21))
 
       if (defaultName) {

@@ -38,13 +38,13 @@ export default async function finalize() {
 
   if (resultMsg.length !== 0) {
     console.group(colors.underline.white(getLang(24)))
-    console.log(colors.green(resultMsg.join('\n')))
+    console.log(colors.yellow(resultMsg.join('\n')))
     console.groupEnd()
   }
 
   if (errMsg.length !== 0) {
     console.group(colors.underline.red(getLang(25)))
-    console.log(colors.white(errMsg.join('\n')))
+    console.log(colors.reset(errMsg.join('\n')))
     console.groupEnd()
     isFinish = false
   }

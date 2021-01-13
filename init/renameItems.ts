@@ -47,7 +47,7 @@ export default async function renameItems(
 
   if (errMsg.length !== 0) {
     console.group(colors.underline.red(getLang(6)))
-    console.log(colors.white(errMsg.join('\n')))
+    console.log(colors.reset(errMsg.join('\n')))
     console.groupEnd()
     isFinish = false
   }

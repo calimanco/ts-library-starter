@@ -7,7 +7,6 @@ import finalize from './finalize'
 import initGit from './initGit'
 import { getLang } from './common'
 import { rmDirs, rmFiles, modifyFiles, renameFiles } from './config'
-import { exec } from 'shelljs'
 
 interface SetupConfig {
   libraryName: string
@@ -92,8 +91,9 @@ export default async function setupLibrary(setupConfig: SetupConfig) {
     isInitGitFinished &&
     isFinalizeFinished
   ) {
-    console.log(colors.bold.cyan(getLang(14)))
+    console.log(colors.cyan.bold(getLang(14)))
   } else {
-    console.log(colors.bold.yellow(getLang(15)))
+    console.log(colors.yellow.bold(getLang(15)))
   }
+  console.log('')
 }

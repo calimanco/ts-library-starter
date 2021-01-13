@@ -29,7 +29,7 @@ export default function setAuthorInfo(
   return new Promise<{ author: string; email: string }>((resolve, reject) => {
     schema.properties.author.description = colors.cyan(getLang(11))
     schema.properties.email.description = colors.cyan(getLang(12))
-    schema.properties.email.message = getLang(13)
+    schema.properties.email.message = colors.reset(getLang(13))
 
     if (defaultAuthor) {
       schema.properties.author.default = defaultAuthor
