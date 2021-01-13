@@ -18,7 +18,8 @@ export const modifyFiles = [
   'rollup.config.js',
   'test/library.spec.ts',
   'tools/gh-pages-publish.ts',
-  'init/README_template.md'
+  'init/README_template.md',
+  'src/index.ts'
 ]
 // 要改名的文件
 export const renameFiles = [

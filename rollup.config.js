@@ -27,24 +27,24 @@ export default {
   plugins: [
     // Allow json resolution
     json(),
-    // Compile TypeScript files
-    typescript({
-      useTsconfigDeclarationDir: true,
-      tsconfig: 'tsconfig.json',
-      tsconfigOverride: {
-        compilerOptions: {
-          removeComments: true
-        }
-      }
-    }),
     // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
     commonjs(),
     // Allow node_modules resolution, so you can use 'external' to control
     // which external modules to include in the bundle
     // https://github.com/rollup/rollup-plugin-node-resolve#usage
     resolve(),
-
     // Resolve source maps to the original source
-    sourceMaps()
+    sourceMaps(),
+    // Compile TypeScript files
+    typescript({
+      useTsconfigDeclarationDir: true,
+      tsconfig: 'tsconfig.json',
+      tsconfigOverride: {
+        compilerOptions: {
+          removeComments: true,
+          module: 'ES2015'
+        }
+      }
+    })
   ]
 }
