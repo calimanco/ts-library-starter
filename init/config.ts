@@ -16,7 +16,7 @@ export const modifyFiles = [
   'LICENSE',
   'package.json',
   'rollup.config.js',
-  'test/library.test.ts',
+  'test/library.spec.ts',
   'tools/gh-pages-publish.ts',
   'init/README_template.md'
 ]
