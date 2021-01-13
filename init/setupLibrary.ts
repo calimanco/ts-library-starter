@@ -91,9 +91,9 @@ export default async function setupLibrary(setupConfig: SetupConfig) {
     isInitGitFinished &&
     isFinalizeFinished
   ) {
-    console.log(colors.cyan.bold(getLang(14)))
+    console.log(colors.cyan(getLang(14)))
   } else {
-    console.log(colors.yellow.bold(getLang(15)))
+    console.log(colors.yellow(getLang(15)))
   }
   console.log('')
 }

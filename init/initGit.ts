@@ -47,7 +47,7 @@ export default async function initGit(
 
   if (resultMsg.length !== 0) {
     console.group(colors.underline.white(getLang(19)))
-    console.log(colors.green(resultMsg.join('\n')))
+    console.log(colors.grey(resultMsg.join('\n')))
     console.groupEnd()
   }
 
