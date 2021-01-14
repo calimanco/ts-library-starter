@@ -19,7 +19,8 @@ export const modifyFiles = [
   'test/library.spec.ts',
   'tools/gh-pages-publish.ts',
   'init/README_template.md',
-  'src/index.ts'
+  'src/index.ts',
+  '.travis.yml'
 ]
 // 要改名的文件
 export const renameFiles = [
