@@ -24,17 +24,49 @@ function modifyPkgFile() {
   })
 }
 
+function modifyGitignore() {
+  const gitignore = path.resolve(__dirname, '..', '.gitignore')
+  return new Promise<string>((resolve, reject) => {
+    fs.readFile(gitignore, (err, buffer) => {
+      if (err) {
+        reject(err)
+        return
+      }
+      const str = buffer.toString().replace('package-lock.json', '')
+      fs.writeFile(gitignore, str, err => {
+        if (err) {
+          reject(err)
+          return
+        }
+        resolve('.gitignore updated')
+      })
+    })
+  })
+}
+
 export default async function finalize() {
   let isFinish = true
   const resultMsg: string[] = []
   const errMsg: string[] = []
+  const taskList = [modifyPkgFile, modifyGitignore]
 
-  try {
-    const res = await modifyPkgFile()
-    resultMsg.push(res)
-  } catch (err) {
-    errMsg.push(err.message)
-  }
+  new Promise<void>(resolve => {
+    taskList.forEach(task => {
+      task()
+        .then(res => {
+          resultMsg.push(res)
+          if (length === resultMsg.length + errMsg.length) {
+            resolve()
+          }
+        })
+        .catch(err => {
+          errMsg.push(err.message)
+          if (length === resultMsg.length + errMsg.length) {
+            resolve()
+          }
+        })
+    })
+  })
 
   if (resultMsg.length !== 0) {
     console.group(colors.underline.white(getLang(24)))
