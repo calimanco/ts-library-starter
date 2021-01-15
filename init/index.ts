@@ -82,22 +82,22 @@ async function main() {
     const { libraryName, description } = await setLibraryConfig(
       setupConfig.libraryName
     )
-    setupConfig.libraryName = libraryName
-    setupConfig.description = description
+    setupConfig.libraryName = libraryName.trim()
+    setupConfig.description = description.trim()
 
     // 设置用户名和邮箱
     const { author, email } = await setAuthorInfo(
       setupConfig.author,
       setupConfig.email
     )
-    setupConfig.author = author
-    setupConfig.email = email
+    setupConfig.author = author.trim()
+    setupConfig.email = email.trim()
 
     // 设置 git 配置
     const { remote, branch, firstCommitMsg, isPush } = await setGitConfig()
-    setupConfig.remote = remote
-    setupConfig.branch = branch
-    setupConfig.firstCommitMsg = firstCommitMsg
+    setupConfig.remote = remote.trim()
+    setupConfig.branch = branch.trim()
+    setupConfig.firstCommitMsg = firstCommitMsg.trim()
     setupConfig.isPush = isPush.toLowerCase().charAt(0) === 'y'
   } catch (error) {
     console.error(getLang(10), error)
