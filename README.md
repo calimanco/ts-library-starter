@@ -48,10 +48,10 @@ npm install
 - `npm test`/`npm run test`： 运行测试套件，并生成单测覆盖率报告。
 - `npm run test:watch`：在 [interactive watch mode](http://facebook.github.io/jest/docs/cli.html#watch) 下运行测试套件。
 - `npm run test:prod`：先运行`npm run lint`，再进行测试，并生成单测覆盖率报告（无缓存）。
-- `npm run deploy-docs`：将文档部署到 gh-pages，建议仅集成环境里使用，详细见 [自动集成（Travis）](#自动集成（Travis）)。
-- `npm run report-coverage`：将单测覆盖率报告提交到 coveralls，建议仅集成环境里使用，详细见 [自动集成（Travis）](#自动集成（Travis）)。
+- `npm run deploy-docs`：将文档部署到 gh-pages，建议仅集成环境里使用，详细见 [自动集成（Travis）](#travis)。
+- `npm run report-coverage`：将单测覆盖率报告提交到 coveralls，建议仅集成环境里使用，详细见 [自动集成（Travis）](#travis)。
 - `npm run commit`：先对 git 暂存区的改动文件进行静态代码检查，再进行语义化提交。
-- `npm run semantic-release`：将 git 的主分支进行发布，建议仅集成环境里使用，详细见 [自动集成（Travis）](#自动集成（Travis）)。
+- `npm run semantic-release`：将 git 的主分支进行发布，建议仅集成环境里使用，详细见 [自动集成（Travis）](#travis)。
 - `npm run compiled`：进行 TypeScript 的编译并输出结果（非打包）。
 
 ## 引导程序（命令行）
@@ -93,7 +93,9 @@ npm install
 - [Travis CI](https://travis-ci.com/)
 - [Coveralls](https://coveralls.io/)
 
-### 已配置的功能
+### 脚本已配置的功能
+
+.travis.yml 文件所配置的功能。其中测试和构建是必须执行项，其余均要满足某些条件才会执行。
 
 - 测试和构建，`npm run test:prod && npm run build`；
 - 提交单测覆盖率报告，`npm run report-coverage`；
@@ -111,9 +113,13 @@ npm install
 
 ### 启动
 
-引导程序已经配置好 .travis.yml，只需要有提交代码到 Github 就会自动被 Travis 拉取并运行。
+引导程序已经配置好 .travis.yml，只需要有提交代码到 Github 就会自动被 Travis 拉取并运行。  
+也可以手动在 Travis 里手动触发。  
 
-注意：请确保 package.json 里的 repository.url 有写入您的项目仓库地址。
+### 注意事项
+
+- 请确保 package.json 里的 repository.url 有写入您的项目仓库地址。  
+- 请确保包名在 NPM 上未被使用，可以使用 `npm view YOURFOLDERNAME` 命令进行检查。
 
 ## 说明
 
@@ -128,6 +134,13 @@ npm install
 
 - [@typescript-eslint/recommended](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin)
 - [prettier/recommended](https://github.com/prettier/eslint-plugin-prettier)
+
+### 跳过引导程序的交互
+
+以下两种情况，引导程序将不会进行提问，全部使用默认进行配置。
+
+- 当 `process.env.CI` 会有值时，这种情况一般出现在被某些脚手架工具调用去情况。
+- 使用 `npm install -y` 进行安装。
 
 ## 许可证
 
