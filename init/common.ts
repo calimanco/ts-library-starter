@@ -94,7 +94,7 @@ export function getLang(num: string | number) {
 export function getLibraryNameSuggested() {
   return path
     .basename(path.resolve(__dirname, '..'))
-    .replace(/([A-Z])g/, '-$1')
+    .replace(/([A-Z])/g, '-$1')
     .replace(/[^\w\d]|_/g, '-')
     .replace(/^-+|-+$/g, '')
     .toLowerCase()
