@@ -2,8 +2,10 @@
 
 ## 简介
 
-用于构建 TypeScript 库的零配置脚手架。  
-支持多语言的友好命令行引导，帮助您完成 git 和从开发、测试到发布的完整流程配置。
+用于构建 TypeScript 库的零配置脚手架（起步项目）。  
+支持多语言的友好引导程序，帮助您完成 git 和从开发、测试到发布的完整流程配置。
+
+![CN_1](https://calimanco.github.io/ts-library-starter/Screenshot/CN_1.png)
 
 ---
 
@@ -13,7 +15,7 @@
 
 - Git CLI 的版本是 2.7.1 或更高；
 - 部分工具要求 Node.js 的版本是 10.18 或更高;
-- Npm CLI 版本保持最新。
+- NPM CLI 版本保持最新。
 
 ## 使用
 
@@ -28,7 +30,8 @@ npm install
 
 ## 特性
 
-- 零配置，支持多语言的友好命令行引导，自动完成 git、库相关信息和各种工具的配置。
+- 引导程序支持多语言，现有中文和英文，更多语言可以轻松添加。
+- 零配置，引导程序会自动完成 git、库相关信息和各种工具的配置。
 - 使用 Prettier 和 ESLint 保证代码质量。
 - 使用 Jest 进行单元测试，并输出覆盖率报告，发布到 Coveralls。
 - 使用 RollupJS 进行编译和打包。
@@ -45,22 +48,26 @@ npm install
 - `npm test`/`npm run test`： 运行测试套件，并生成单测覆盖率报告。
 - `npm run test:watch`：在 [interactive watch mode](http://facebook.github.io/jest/docs/cli.html#watch) 下运行测试套件。
 - `npm run test:prod`：先运行`npm run lint`，再进行测试，并生成单测覆盖率报告（无缓存）。
-- `npm run deploy-docs`：将文档部署到 gh-pages，建议只在 Travis 里使用，详细见下。
-- `npm run report-coverage`：将单测覆盖率报告提交到 coveralls，建议只在 Travis 里使用，详细见下。
+- `npm run deploy-docs`：将文档部署到 gh-pages，建议仅集成环境里使用，详细见 [自动集成（Travis）](#自动集成（Travis）)。
+- `npm run report-coverage`：将单测覆盖率报告提交到 coveralls，建议仅集成环境里使用，详细见 [自动集成（Travis）](#自动集成（Travis）)。
 - `npm run commit`：先对 git 暂存区的改动文件进行静态代码检查，再进行语义化提交。
-- `npm run semantic-release`：将 git 的主分支进行发布，建议只在 Travis 里使用，详细见下。
-- `npm run compiled`：进行 TypeScript 的编译并输出结果。
+- `npm run semantic-release`：将 git 的主分支进行发布，建议仅集成环境里使用，详细见 [自动集成（Travis）](#自动集成（Travis）)。
+- `npm run compiled`：进行 TypeScript 的编译并输出结果（非打包）。
 
-## 命令行引导
+## 引导程序（命令行）
 
-当运行完 `npm install` 后，将会启动 init 目录下的引导脚本，帮助您完成库的配置。
+当运行完 `npm install` 后，将会启动 init 目录下的引导脚本。
+它会提出多个问题，帮助您完成库的配置。
 
-### 作用
+![CN_2](https://calimanco.github.io/ts-library-starter/Screenshot/CN_2.png)
+![CN_3](https://calimanco.github.io/ts-library-starter/Screenshot/CN_3.png)
 
-- 配置库的 package.json、rollup.config.js、.travis.yml 和 LICENSE；
+### 流程
+
+- 配置库的 package.json、rollup.config.js、.travis.yml 等；
 - 修改并改名 src 和 test 下的文件；
 - 生成新的 README 文件；
-- 配置 git；
+- 初始化 git，并完成首次提交；
 - 清理初始化相关的文件。
 
 ### 默认值
@@ -70,10 +77,11 @@ npm install
 - email：邮箱，来自运行`git config user.email` 的输出。
 - branch：主分支名，Github 的建议叫 main。
 
-### 增加命令行引导的语言支持
+### 增加语言支持
 
 引导脚本会先读取 init/lang 目录下语言包。语言包是 json 格式的文件，要增加语言支持只需要添加新的 json 文件即可。  
-新 json 文件的内容只要保持 key 不变，就可以被正确的读取。
+新 json 文件的内容只要保持 key 不变，就可以被正确的读取。  
+如果您对本项目感兴趣，欢迎您提供更多本地化翻译。  
 
 ## 自动集成（Travis）
 
@@ -85,7 +93,7 @@ npm install
 - [Travis CI](https://travis-ci.com/)
 - [Coveralls](https://coveralls.io/)
 
-### .travis.yml 的功能
+### 已配置的功能
 
 - 测试和构建，`npm run test:prod && npm run build`；
 - 提交单测覆盖率报告，`npm run report-coverage`；
@@ -94,26 +102,25 @@ npm install
 
 ### 环境变量
 
-需要准备以下三个环境变量，会在自动集成中用到，请将他们写入 Travis 的运行环境。  
+需要如下几个环境变量，请将他们写入集成环境中。  
 如果你想要在本地运行相关命令，也是需要的。  
 
-- NPM_TOKEN：通过 NPM 获取
-- COVERALLS_REPO_TOKEN：通过 Coveralls 获取
-- GH_TOKEN：通过 Github 获取
+- NPM_TOKEN：通过 NPM 获取，用于 `npm run semantic-release`。
+- COVERALLS_REPO_TOKEN：通过 Coveralls 获取，用于 `npm run report-coverage`。
+- GH_TOKEN：通过 Github 获取，用于 `npm run deploy-docs`。
 
 ### 启动
 
 引导程序已经配置好 .travis.yml，只需要有提交代码到 Github 就会自动被 Travis 拉取并运行。
 
-注意：请确保 package.json 里的 repository.url 有正确的值。
-
+注意：请确保 package.json 里的 repository.url 有写入您的项目仓库地址。
 
 ## 说明
 
 ### 自动发布
 
-自动发布是需要满足一定条件的，依据提交时的提交信息进行判断，具体判断参考 [semantic-release](https://github.com/semantic-release/semantic-release )  
-建议使用`npm run commit`进行语义化提交，它能引导您自动生成符合规范的提交信息。
+自动发布是需要满足一定条件的，依据提交时的提交信息进行判断，具体判断参考 [semantic-release](https://github.com/semantic-release/semantic-release ) 。  
+建议使用 `npm run commit` 进行语义化提交，它能引导您自动生成符合规范的提交信息。
 
 ### 代码规范
 
