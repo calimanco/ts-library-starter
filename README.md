@@ -48,19 +48,16 @@ npm install
 - `npm test`/`npm run test`： 运行测试套件，并生成单测覆盖率报告。
 - `npm run test:watch`：在 [interactive watch mode](http://facebook.github.io/jest/docs/cli.html#watch) 下运行测试套件。
 - `npm run test:prod`：先运行`npm run lint`，再进行测试，并生成单测覆盖率报告（无缓存）。
-- `npm run deploy-docs`：将文档部署到 gh-pages，建议仅集成环境里使用，详细见 [自动集成（Travis）](#travis)。
-- `npm run report-coverage`：将单测覆盖率报告提交到 coveralls，建议仅集成环境里使用，详细见 [自动集成（Travis）](#travis)。
+- `npm run deploy-docs`：将文档部署到 gh-pages，建议仅集成环境里使用，详细见 [自动集成](#travis)。
+- `npm run report-coverage`：将单测覆盖率报告提交到 coveralls，建议仅集成环境里使用，详细见 [自动集成](#travis)。
 - `npm run commit`：先对 git 暂存区的改动文件进行静态代码检查，再进行语义化提交。
-- `npm run semantic-release`：将 git 的主分支进行发布，建议仅集成环境里使用，详细见 [自动集成（Travis）](#travis)。
+- `npm run semantic-release`：将 git 的主分支进行发布，建议仅集成环境里使用，详细见 [自动集成](#travis)。
 - `npm run compiled`：进行 TypeScript 的编译并输出结果（非打包）。
 
 ## 引导程序（命令行）
 
 当运行完 `npm install` 后，将会启动 init 目录下的引导脚本。
 它会提出多个问题，帮助您完成库的配置。
-
-![CN_2](https://calimanco.github.io/ts-library-starter/Screenshot/CN_2.png)
-![CN_3](https://calimanco.github.io/ts-library-starter/Screenshot/CN_3.png)
 
 ### 流程
 
@@ -70,18 +67,28 @@ npm install
 - 初始化 git，并完成首次提交；
 - 清理初始化相关的文件。
 
+![CN_2](https://calimanco.github.io/ts-library-starter/Screenshot/CN_2.png)
+![CN_3](https://calimanco.github.io/ts-library-starter/Screenshot/CN_3.png)
+
 ### 默认值
 
-- libraryName：库名，来自对库所在文件夹名的短横线隔开式转换，比如"MyProgram"会被转换为"my-program"。
-- author：作者，来自运行 `git config user.name` 的输出。
-- email：邮箱，来自运行`git config user.email` 的输出。
-- branch：主分支名，Github 的建议叫 main。
+- `libraryName`：库名，来自对库所在文件夹名的短横线隔开式转换，比如"MyProgram"会被转换为"my-program"。
+- `author`：作者，来自运行 `git config user.name` 的输出。
+- `email`：邮箱，来自运行`git config user.email` 的输出。
+- `branch`：主分支名，Github 的建议叫 main。
 
 ### 增加语言支持
 
-引导脚本会先读取 init/lang 目录下语言包。语言包是 json 格式的文件，要增加语言支持只需要添加新的 json 文件即可。  
-新 json 文件的内容只要保持 key 不变，就可以被正确的读取。  
+引导程序会先读取 init/lang 目录下语言包。  
+语言包是 json 格式的文件，新赠 json 文件的内容只要保持 key 不变，就可以被正确的读取。  
 如果您对本项目感兴趣，欢迎您提供更多本地化翻译。  
+
+### 错误处理
+
+引导程序一般不会因为某个文件报错而终止，而是会将所有流程运行完，再报告出错的文件及原因。  
+可根据提示信息，对报错文件进行手动的修复。  
+
+![CN_4](https://calimanco.github.io/ts-library-starter/Screenshot/CN_4.png)
 
 ## 自动集成（Travis）
 
