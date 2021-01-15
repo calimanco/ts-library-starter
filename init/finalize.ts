@@ -50,7 +50,7 @@ export default async function finalize() {
   const errMsg: string[] = []
   const taskList = [modifyPkgFile, modifyGitignore]
 
-  new Promise<void>(resolve => {
+  await new Promise<void>(resolve => {
     taskList.forEach(task => {
       task()
         .then(res => {
