@@ -6,7 +6,8 @@ import {
   readLangDir,
   isSkipAsking,
   getLang,
-  getLibraryNameSuggested
+  getLibraryNameSuggested,
+  setLangPkg
 } from './common'
 
 import setLanguage from './setLanguage'
@@ -60,16 +61,17 @@ setupConfig.libraryName = getLibraryNameSuggested()
 main()
 
 async function main() {
-  // 检查是否是跳过询问。
-  if (isSkipAsking()) {
-    console.log(colors.cyan(`Skip asking question`))
-    await setupLibrary(setupConfig)
-    exit(0)
-  }
-
   // 读取语言包
   console.log(colors.cyan(`Loading language packages...`))
   const langPkgList = await readLangDir(langDir)
+
+  // 检查是否是跳过询问。
+  if (isSkipAsking()) {
+    console.log(colors.cyan(`Skip asking question`))
+    await setLangPkg(langPkgList[0])
+    await setupLibrary(setupConfig)
+    exit(0)
+  }
 
   try {
     // 设置语言
