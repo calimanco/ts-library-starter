@@ -28,6 +28,15 @@ cd YOURFOLDERNAME
 npm install
 ```
 
+```javascript
+// Use the generated library
+import library from 'your-library-name'
+// or
+const library = require('your-library-name')
+// or writing <script src="dist/YOURLIBRARYNAME.umd.js"></script> in html then
+// you will find yourLibraryName variable in the global.
+```
+
 ## 特性
 
 - 引导程序支持多语言，现有中文和英文，更多语言可以轻松添加。
@@ -72,7 +81,7 @@ npm install
 
 ### 默认值
 
-- `libraryName`：库名，来自对库所在文件夹名的短横线隔开式转换，比如"MyProgram"会被转换为"my-program"。
+- `libraryName`：库名，来自对库所在文件夹名的"kebabCase"转换，比如"MyProgram"会被转换为"my-program"。
 - `author`：作者，来自运行 `git config user.name` 的输出。
 - `email`：邮箱，来自运行`git config user.email` 的输出。
 - `branch`：主分支名，Github 的建议叫 main。

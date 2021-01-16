@@ -1,5 +1,6 @@
 import * as path from 'path'
 import * as fs from 'fs'
+import kebabCase from 'lodash.kebabcase'
 import { defaultLang } from './config'
 
 export interface LangPkg {
@@ -92,10 +93,5 @@ export function getLang(num: string | number) {
 }
 
 export function getLibraryNameSuggested() {
-  return path
-    .basename(path.resolve(__dirname, '..'))
-    .replace(/([A-Z])/g, '-$1')
-    .replace(/[^\w\d]|_/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .toLowerCase()
+  return kebabCase(path.basename(path.resolve(__dirname, '..')))
 }
