@@ -13,7 +13,7 @@ function modifyPkgFile() {
       }
       const pkg = JSON.parse(buffer.toString())
       delete pkg.scripts.postinstall
-      fs.writeFile(jsonPackage, JSON.stringify(pkg, null, 2), err => {
+      fs.writeFile(jsonPackage, JSON.stringify(pkg, null, 2) + '\n', err => {
         if (err) {
           reject(err)
           return
