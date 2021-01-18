@@ -1,6 +1,6 @@
 import * as path from 'path'
 import * as fs from 'fs'
-import kebabCase from 'lodash.kebabcase'
+import { kebabCase } from 'lodash'
 import { defaultLang } from './config'
 
 export interface LangPkg {
