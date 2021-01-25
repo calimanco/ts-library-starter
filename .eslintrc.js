@@ -10,7 +10,7 @@ module.exports = {
       }
     },
     {
-      files: ['*.{spec|test}.ts'],
+      files: ['*.spec.ts', '*.test.ts'],
       rules: {
         // You can customize the rules here.
         // Test documents can be less strict.
