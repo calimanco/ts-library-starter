@@ -1,5 +1,7 @@
 # ts-library-starter
 
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 ## 简介
 
 用于构建 TypeScript 库的零配置脚手架（起步项目）。  
@@ -22,19 +24,18 @@
 ```bash
 # Clone to the folder where you want to start the library.
 git clone https://github.com/calimanco/ts-library-starter.git YOURFOLDERNAME
-# Enter the folder
+# Enter the folder.
 cd YOURFOLDERNAME
 # Run npm install and follow the interactive guide to answer questions. That's all!
 npm install
 ```
 
 ```javascript
-// Use the generated library
+// Use the generated library.
 import library from 'your-library-name'
-// or
+// Or if your es6 module only export default.
 const library = require('your-library-name')
-// or writing <script src="dist/YOURLIBRARYNAME.umd.js"></script> in html then
-// you will find yourLibraryName variable in the global.
+// Or writing <script src="dist/YOURLIBRARYNAME.umd.js"></script> in html then you will find yourLibraryName variable in the global.
 ```
 
 ## 特性
@@ -52,6 +53,7 @@ const library = require('your-library-name')
 ## NPM 命令
 
 - `npm run lint`：对 src 和 test 目录进行静态代码检查。
+- `npm run lint:md`：对目录下的所有 Markdown 文件进行静态代码检查。
 - `npm run build`：先移除 dist 目录，再进行编译和打包, 并生成文档。
 - `npm start`/`npm run start`：在"watch"模式下运行`npm run build`。
 - `npm test`/`npm run test`： 运行测试套件，并生成单测覆盖率报告。
@@ -90,14 +92,22 @@ const library = require('your-library-name')
 
 引导程序会先读取 init/lang 目录下语言包。  
 语言包是 json 格式的文件，新赠 json 文件的内容只要保持 key 不变，就可以被正确的读取。  
-如果您对本项目感兴趣，欢迎您提供更多本地化翻译。  
+如果您对本项目感兴趣，欢迎您提供更多本地化翻译。
 
 ### 错误处理
 
 引导程序一般不会因为某个文件报错而终止，而是会将所有流程运行完，再报告出错的文件及原因。  
-可根据提示信息，对报错文件进行手动的修复。  
+可根据提示信息，对报错文件进行手动的修复。
 
 ![CN_4](https://calimanco.github.io/ts-library-starter/Screenshot/CN_4.png)
+
+## 打包（Rollup）
+
+采用 Rollup 作为打包的程序，已经配置了常用的插件。默认会在 dist 目录下生成下列文件：
+
+- yourLibraryName.umd.js：兼容 amd、cjs 和 iife，未压缩，有 sourcemap。
+- yourLibraryName.umd.min.js：兼容 amd、cjs 和 iife，已压缩，无 sourcemap。
+- yourLibraryName.es6.js：ES 模块文件，未压缩，有 sourcemap。
 
 ## 自动集成（Travis）
 
@@ -121,7 +131,7 @@ const library = require('your-library-name')
 ### 环境变量
 
 需要如下几个环境变量，请将他们写入集成环境中。  
-如果你想要在本地运行相关命令，也是需要的。  
+如果你想要在本地运行相关命令，也是需要的。
 
 - NPM_TOKEN：通过 NPM 获取，用于 `npm run semantic-release`。
 - COVERALLS_REPO_TOKEN：通过 Coveralls 获取，用于 `npm run report-coverage`。
@@ -130,26 +140,40 @@ const library = require('your-library-name')
 ### 启动
 
 引导程序已经配置好 .travis.yml，只需要有提交代码到 Github 就会自动被 Travis 拉取并运行。  
-也可以手动在 Travis 里手动触发。  
+也可以手动在 Travis 里手动触发。
+
+### 文档部署
+
+自动生成的文档会部署到 Github 仓库的 gh-pages 分支，并且开启了 GitHub Pages 的功能，整个分支将成为一个静态网页。  
+默认不会公开，可通过`https://<yourGithubName>.github.io/{yourLibraryName}` 访问。
+
+### 发布
+
+当满足一定条件时，会进行如下发布操作：
+
+- 自动发布到 NPM；
+- 创建版本 Tag；
+- 创建 Github release，自动填写 Changelog，并且上传 yourLibraryName.umd.js 和 yourLibraryName.umd.min.js 作为 Assets。
 
 ### 注意事项
 
-- 请确保 package.json 里的 repository.url 有写入您的项目仓库地址。  
+- 请确保 package.json 里的 repository.url 有写入您的项目仓库地址。
 - 请确保包名在 NPM 上未被使用，可以使用 `npm view YOURFOLDERNAME` 命令进行检查。
 
 ## 说明
 
-### 自动发布
+### 自动发布的条件
 
-自动发布是需要满足一定条件的，依据提交时的提交信息进行判断，具体判断参考 [semantic-release](https://github.com/semantic-release/semantic-release ) 。  
+自动发布是需要满足一定条件的，依据提交时的提交信息进行判断，具体判断参考 [semantic-release](https://github.com/semantic-release/semantic-release) 。  
 建议使用 `npm run commit` 进行语义化提交，它能引导您自动生成符合规范的提交信息。
 
 ### 代码规范
 
-采用了如下规范，并且排除了冲突的"@typescript-eslint/no-extra-semi"规则。
+采用了 JavaScript Standard Style 规范，对于 Typescript 文件使用了 eslint-config-standard-with-typescript 扩展规范。  
+关闭了所有不必要的或可能与 Prettier 冲突的规则。
 
-- [@typescript-eslint/recommended](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin)
-- [prettier/recommended](https://github.com/prettier/eslint-plugin-prettier)
+- [JavaScript Standard Style](https://standardjs.com/)
+- [eslint-config-standard-with-typescript](https://github.com/standard/eslint-config-standard-with-typescript)
 
 ### 跳过引导程序的交互
 

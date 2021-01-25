@@ -20,7 +20,8 @@ export const modifyFiles = [
   'tools/gh-pages-publish.ts',
   'init/README_template.md',
   'src/index.ts',
-  '.travis.yml'
+  '.travis.yml',
+  'release.config.js'
 ]
 // 要改名的文件
 export const renameFiles = [
