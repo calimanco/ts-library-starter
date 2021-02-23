@@ -1,10 +1,10 @@
 module.exports = {
-  extends: ['standard', 'plugin:prettier/recommended', 'prettier/standard'],
+  extends: ['standard', 'plugin:prettier/recommended'],
   overrides: [
     {
       files: ['*.ts'],
       parser: '@typescript-eslint/parser',
-      extends: ['standard-with-typescript', 'prettier/@typescript-eslint'],
+      extends: ['standard-with-typescript'],
       parserOptions: {
         project: ['./tsconfig.eslint.json']
       }
