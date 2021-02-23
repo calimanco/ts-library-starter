@@ -4,7 +4,7 @@ module.exports = {
     {
       files: ['*.ts'],
       parser: '@typescript-eslint/parser',
-      extends: ['standard-with-typescript'],
+      extends: ['standard-with-typescript', 'prettier'],
       parserOptions: {
         project: ['./tsconfig.eslint.json']
       }
