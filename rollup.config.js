@@ -3,9 +3,8 @@ import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import sourceMaps from 'rollup-plugin-sourcemaps'
 import typescript from 'rollup-plugin-typescript2'
+import { terser } from 'rollup-plugin-terser'
 import { camelCase } from 'lodash'
-// Only use for es5 code.
-import { uglify } from 'rollup-plugin-uglify'
 
 import pkg from './package.json'
 
@@ -27,7 +26,7 @@ export default {
       format: 'umd',
       exports: 'named',
       sourcemap: false,
-      plugins: [uglify()]
+      plugins: [terser()]
     },
     { file: pkg.module, format: 'es', sourcemap: true }
   ],

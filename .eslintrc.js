@@ -7,6 +7,9 @@ module.exports = {
       extends: ['standard-with-typescript', 'prettier'],
       parserOptions: {
         project: ['./tsconfig.eslint.json']
+      },
+      rules: {
+        '@typescript-eslint/prefer-ts-expect-error': 'off'
       }
     },
     {
