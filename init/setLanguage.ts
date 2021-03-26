@@ -1,21 +1,21 @@
-// @ts-ignore
 import * as prompt from 'prompt'
 import * as colors from 'colors'
-import { LangPkgInfo, setLangPkg } from './common'
+import { LangPkg, LangPkgInfo, setLangPkg } from './common'
 
-const schema = {
-  properties: {
-    lang: {
-      pattern: /0/,
-      description: colors.cyan('Please set your language. (number)'),
-      default: 0,
-      message: '',
-      required: true
-    }
+const properties: prompt.RevalidatorSchema[] = [
+  {
+    name: 'lang',
+    pattern: /0/,
+    description: colors.cyan('Please set your language. (number)'),
+    default: 0,
+    message: '',
+    required: true
   }
-}
+]
 
-export default function setLanguage(langPkgList: LangPkgInfo[]) {
+export default async function setLanguage(
+  langPkgList: LangPkgInfo[]
+): Promise<LangPkg> {
   const maxIndex = langPkgList.length - 1
 
   console.group(
@@ -28,13 +28,14 @@ export default function setLanguage(langPkgList: LangPkgInfo[]) {
   )
   console.groupEnd()
 
-  schema.properties.lang.pattern = new RegExp(`[0-${maxIndex}]`)
-  schema.properties.lang.message = colors.reset(`Must respond 0 to ${maxIndex}`)
+  properties[0].pattern = new RegExp(`[0-${maxIndex}]`)
+  properties[0].message = colors.reset(`Must respond 0 to ${maxIndex}`)
 
-  return new Promise((resolve, reject) => {
-    prompt.get(schema, function (err: any, res: any) {
-      if (err) {
+  return await new Promise((resolve, reject) => {
+    prompt.get(properties, function (err: any, res: any) {
+      if (err != null) {
         reject(err)
+        return
       }
       setLangPkg(langPkgList[res.lang])
         .then(langPkg => {

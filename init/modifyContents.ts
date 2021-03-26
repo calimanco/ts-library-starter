@@ -3,10 +3,14 @@ import * as fs from 'fs'
 import * as colors from 'colors'
 import { getLang } from './common'
 
-function replaceInfile(filePath: string, from: RegExp[], to: string[]) {
-  return new Promise<void>((resolve, reject) => {
+async function replaceInfile(
+  filePath: string,
+  from: RegExp[],
+  to: string[]
+): Promise<void> {
+  return await new Promise((resolve, reject) => {
     fs.readFile(filePath, (err, buffer) => {
-      if (err) {
+      if (err != null) {
         reject(err)
         return
       }
@@ -15,7 +19,7 @@ function replaceInfile(filePath: string, from: RegExp[], to: string[]) {
         content = content.replace(reg, to[idx])
       })
       fs.writeFile(filePath, content, err => {
-        if (err) {
+        if (err != null) {
           reject(err)
           return
         }
@@ -29,7 +33,7 @@ export default async function modifyContents(
   modifyFiles: string[],
   from: RegExp[],
   to: string[]
-) {
+): Promise<boolean> {
   const length = modifyFiles.length
   let isFinish = true
   const resultMsg: string[] = []

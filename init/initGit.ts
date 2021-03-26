@@ -1,6 +1,6 @@
 import * as path from 'path'
 import * as colors from 'colors'
-import { exec } from 'shelljs'
+import { execSync } from 'child_process'
 import { getLang } from './common'
 
 export default async function initGit(
@@ -10,21 +10,21 @@ export default async function initGit(
   branch: string,
   firstCommitMsg: string,
   isPush: boolean
-) {
+): Promise<boolean> {
   let isFinish = true
   const resultMsg: string[] = []
   const errMsg: string[] = []
 
   const gitCommands = [
     `git init "${path.resolve(__dirname, '..')}"`,
-    `git add -A`,
+    `git add .gitignore`,
     `git config --local user.name "${author}"`,
     `git config --local user.email "${email}"`,
     `git commit -m "${firstCommitMsg}"`,
     `git branch -M "${branch}"`
   ]
 
-  if (remote && remote.length > 0) {
+  if (remote != null && remote.length > 0) {
     gitCommands.push(`git remote add origin "${remote}"`)
 
     if (isPush) {
@@ -34,9 +34,7 @@ export default async function initGit(
 
   gitCommands.forEach(c => {
     try {
-      let gitInitOutput = exec(c, {
-        silent: true
-      }).stdout
+      const gitInitOutput = execSync(c).toString()
       if (gitInitOutput !== '') {
         resultMsg.push(gitInitOutput)
       }

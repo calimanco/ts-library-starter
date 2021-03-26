@@ -24,5 +24,6 @@
   "22": "Do you want to push the library to the remote after initialization? [Yes/No]",
   "23": "You need to type \"yes/y\" or \"no/n\" to continue...",
   "24": "Finalizing",
-  "25": "Some errors occurred finalizing:"
+  "25": "Some errors occurred finalizing:",
+  "26": "Oops, an unexpected error occurred"
 }

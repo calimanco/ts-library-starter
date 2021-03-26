@@ -1,5 +1,4 @@
 import * as colors from 'colors'
-import * as path from 'path'
 import removeItems from './removeItems'
 import modifyContents from './modifyContents'
 import renameItems from './renameItems'
@@ -20,7 +19,9 @@ interface SetupConfig {
   year: string
 }
 
-export default async function setupLibrary(setupConfig: SetupConfig) {
+export default async function setupLibrary(
+  setupConfig: SetupConfig
+): Promise<void> {
   const {
     libraryName,
     description,
@@ -35,9 +36,11 @@ export default async function setupLibrary(setupConfig: SetupConfig) {
 
   // 打印配置
   console.group(colors.underline.white(`${getLang(1)}`))
-  Object.keys(setupConfig).forEach(key => {
-    console.log(colors.reset(`${key}: ${(setupConfig as any)[key]}`))
-  })
+  for (const key of Object.keys(setupConfig) as Array<
+    keyof typeof setupConfig
+  >) {
+    console.log(colors.reset(`${key}: ${setupConfig[key] as string}`))
+  }
   console.groupEnd()
   console.log('')
 

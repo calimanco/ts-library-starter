@@ -34,7 +34,8 @@
     "semantic-release": "semantic-release --branches=--branch--",
     "precommit": "lint-staged",
     "compiled": "tsc",
-    "postinstall": "ts-node init/index.ts"
+    "postinstall": "ts-node init/index.ts",
+    "try": "ts-node init/prepareDemoEnv.ts"
   },
   "lint-staged": {
     "{src,test}/**/**/*.ts": [
@@ -54,9 +55,11 @@
     "@types/jest": "^26.0.21",
     "@types/lodash": "^4.14.168",
     "@types/node": "^14.14.35",
+    "@types/prompt": "^1.1.0",
     "@types/shelljs": "^0.8.8",
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
+    "@types/which": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
     "colors": "^1.3.2",
     "commitizen": "^4.2.3",
     "coveralls": "^3.0.2",
@@ -79,7 +82,7 @@
     "lodash": "^4.17.21",
     "prettier": "^2.2.1",
     "prompt": "^1.0.0",
-    "rollup": "^2.41.5",
+    "rollup": "^2.42.4",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
@@ -88,7 +91,8 @@
     "ts-jest": "^26.5.4",
     "ts-node": "^9.1.1",
     "tslib": "^2.1.0",
-    "typedoc": "^0.20.32",
-    "typescript": "^4.2.3"
+    "typedoc": "^0.20.34",
+    "typescript": "^4.2.3",
+    "which": "^2.0.2"
   }
 }

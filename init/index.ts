@@ -1,7 +1,7 @@
-// @ts-ignore
 import * as prompt from 'prompt'
 import * as colors from 'colors'
-import { echo, exec, which, exit, config } from 'shelljs'
+import * as which from 'which'
+import { execSync } from 'child_process'
 import {
   readLangDir,
   isSkipAsking,
@@ -18,9 +18,7 @@ import setupLibrary from './setupLibrary'
 import { langDir } from './config'
 
 // 清屏
-echo('\x1B[2J\x1B[0f')
-
-config.fatal = true
+process.stdin.write('\x1B[2J\x1B[0f')
 
 const setupConfig = {
   libraryName: '',
@@ -34,33 +32,31 @@ const setupConfig = {
   year: new Date().getFullYear().toString()
 }
 
-prompt.start()
+// @ts-ignore
+// eslint-disable-next-line no-import-assign
 prompt.message = ''
+prompt.start()
 
 // 检查 git 支持。
-if (!which('git')) {
+if (which.sync('git') == null) {
   console.log(
     colors.red(
       'Sorry, this script requires git. Please make sure you have git and re-run "npm install".'
     )
   )
-  exit(1)
+  process.exit(1)
 }
 
 // 获取 git 的用户名和邮箱
-setupConfig.author = exec('git config user.name', {
-  silent: true
-}).stdout.trim()
-setupConfig.email = exec('git config user.email', {
-  silent: true
-}).stdout.trim()
+setupConfig.author = execSync('git config user.name').toString().trim()
+setupConfig.email = execSync('git config user.email').toString().trim()
 
 // 获取建议的库名
 setupConfig.libraryName = getLibraryNameSuggested()
 
-main()
+void main()
 
-async function main() {
+async function main(): Promise<void> {
   // 读取语言包
   console.log(colors.cyan(`Loading language packages...`))
   const langPkgList = await readLangDir(langDir)
@@ -70,9 +66,10 @@ async function main() {
     console.log(colors.cyan(`Skip asking question`))
     await setLangPkg(langPkgList[0])
     await setupLibrary(setupConfig)
-    exit(0)
+    process.exit(0)
   }
 
+  // 配置阶段
   try {
     // 设置语言
     await setLanguage(langPkgList)
@@ -103,8 +100,14 @@ async function main() {
     setupConfig.isPush = isPush.toLowerCase().charAt(0) === 'y'
   } catch (error) {
     console.error(getLang(10), error)
-    exit(1)
+    process.exit(1)
   }
 
-  await setupLibrary(setupConfig)
+  // 执行阶段
+  try {
+    await setupLibrary(setupConfig)
+  } catch (error) {
+    console.error(getLang(26), error)
+    process.exit(1)
+  }
 }

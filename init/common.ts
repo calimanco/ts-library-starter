@@ -13,11 +13,11 @@ export interface LangPkgInfo {
   filePath: string
 }
 
-export function readLangDir(name: string) {
+export async function readLangDir(name: string): Promise<LangPkgInfo[]> {
   const dirPath = path.resolve(__dirname, name)
-  return new Promise<LangPkgInfo[]>((resolve, reject) => {
+  return await new Promise((resolve, reject) => {
     fs.readdir(dirPath, (err, files) => {
-      if (err) {
+      if (err != null) {
         reject(err)
         return
       }
@@ -52,14 +52,15 @@ export function readLangDir(name: string) {
 }
 
 export function isSkipAsking(): boolean {
-  if (process.env.CI != null || process.argv.indexOf('-y') > -1) {
+  if (process.env.CI != null || process.argv.includes('-y')) {
     return true
   }
 
   if (typeof process.env.npm_config_argv !== 'undefined') {
-    const npm_config_argv = JSON.parse(process.env.npm_config_argv)
+    const npmConfigArgv = JSON.parse(process.env.npm_config_argv)
     return (
-      npm_config_argv.original && npm_config_argv.original.indexOf('-y') > -1
+      npmConfigArgv.original != null &&
+      npmConfigArgv.original.indexOf('-y') > -1
     )
   }
   return false
@@ -68,30 +69,33 @@ export function isSkipAsking(): boolean {
 const langPkgCache: { [propName: string]: LangPkg } = {}
 let langPkgPointer: string = ''
 
-export function setLangPkg(langPkg: LangPkgInfo) {
-  return new Promise((resolve, reject) => {
+export async function setLangPkg(langPkg: LangPkgInfo): Promise<LangPkg> {
+  return await new Promise((resolve, reject) => {
     if (typeof langPkgCache[langPkg.name] !== 'undefined') {
       resolve(langPkgCache[langPkg.name])
     }
     fs.readFile(langPkg.filePath, (err, buffer) => {
+      if (err != null) {
+        reject(err)
+      }
       try {
         langPkgCache[langPkg.name] = JSON.parse(buffer.toString())
         langPkgPointer = langPkg.name
-        resolve(langPkg)
-      } catch (error) {
-        reject(error)
+        resolve(langPkgCache[langPkg.name])
+      } catch (err) {
+        reject(err)
       }
     })
   })
 }
 
-export function getLang(num: string | number) {
+export function getLang(num: string | number): string {
   if (langPkgPointer !== '') {
     return langPkgCache[langPkgPointer][String(num)]
   }
-  throw 'No language set'
+  throw new Error('No language set')
 }
 
-export function getLibraryNameSuggested() {
-  return kebabCase(path.basename(path.resolve(__dirname, '..')))
+export function getLibraryNameSuggested(): string {
+  return kebabCase(path.basename(path.join(__dirname, '..')))
 }

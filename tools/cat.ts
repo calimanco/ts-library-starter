@@ -1,6 +1,6 @@
-import * as fs from 'fs'
+import { readFile } from 'fs'
 
-fs.readFile(process.argv[2], function (err, data) {
+readFile(process.argv[2], function (err, data) {
   if (err != null) {
     console.log(err)
     return

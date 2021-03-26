@@ -1,46 +1,46 @@
-// @ts-ignore
 import * as prompt from 'prompt'
-import { getLang } from './common'
 import * as colors from 'colors'
+import { getLang } from './common'
 
-const schema = {
-  properties: {
-    author: {
-      description: '',
-      type: 'string',
-      required: true,
-      default: ''
-    },
-    email: {
-      description: '',
-      pattern: /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/,
-      type: 'string',
-      required: true,
-      default: '',
-      message: ''
-    }
+const properties: prompt.RevalidatorSchema[] = [
+  {
+    name: 'author',
+    description: '',
+    type: 'string',
+    required: true,
+    default: ''
+  },
+  {
+    name: 'email',
+    description: '',
+    pattern: /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/,
+    type: 'string',
+    required: true,
+    default: '',
+    message: ''
   }
-}
+]
 
-export default function setAuthorInfo(
+export default async function setAuthorInfo(
   defaultAuthor: string,
   defaultEmail: string
-) {
-  return new Promise<{ author: string; email: string }>((resolve, reject) => {
-    schema.properties.author.description = colors.cyan(getLang(11))
-    schema.properties.email.description = colors.cyan(getLang(12))
-    schema.properties.email.message = colors.reset(getLang(13))
+): Promise<{ author: string; email: string }> {
+  return await new Promise((resolve, reject) => {
+    properties[0].description = colors.cyan(getLang(11))
+    properties[1].description = colors.cyan(getLang(12))
+    properties[1].message = colors.reset(getLang(13))
 
-    if (defaultAuthor) {
-      schema.properties.author.default = defaultAuthor
+    if (defaultAuthor != null) {
+      properties[0].default = defaultAuthor
     }
-    if (defaultEmail) {
-      schema.properties.email.default = defaultEmail
+    if (defaultEmail != null) {
+      properties[1].default = defaultEmail
     }
 
-    prompt.get(schema, (err: any, res: any) => {
-      if (err) {
+    prompt.get(properties, (err: any, res: any) => {
+      if (err != null) {
         reject(err)
+        return
       }
       resolve(res)
     })

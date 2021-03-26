@@ -52,18 +52,18 @@ const library = require('your-library-name')
 
 ## NPM 命令
 
-- `npm run lint`：对 src 和 test 目录进行静态代码检查。
-- `npm run lint:md`：对目录下的所有 Markdown 文件进行静态代码检查。
-- `npm run build`：先移除 dist 目录，再进行编译和打包, 并生成文档。
-- `npm start`/`npm run start`：在"watch"模式下运行`npm run build`。
-- `npm test`/`npm run test`： 运行测试套件，并生成单测覆盖率报告。
-- `npm run test:watch`：在 [interactive watch mode](http://facebook.github.io/jest/docs/cli.html#watch) 下运行测试套件。
-- `npm run test:prod`：先运行`npm run lint`，再进行测试，并生成单测覆盖率报告（无缓存）。
-- `npm run deploy-docs`：将文档部署到 gh-pages，建议仅集成环境里使用，详细见 [自动集成](#travis)。
-- `npm run report-coverage`：将单测覆盖率报告提交到 coveralls，建议仅集成环境里使用，详细见 [自动集成](#travis)。
-- `npm run commit`：先对 git 暂存区的改动文件进行静态代码检查，再进行语义化提交。
-- `npm run semantic-release`：将 git 的主分支进行发布，建议仅集成环境里使用，详细见 [自动集成](#travis)。
-- `npm run compiled`：进行 TypeScript 的编译并输出结果（非打包）。
+- `npm run lint`  对 src 和 test 目录进行静态代码检查。
+- `npm run lint:md`  对目录下的所有 Markdown 文件进行静态代码检查。
+- `npm run build`  先移除 dist 目录，再进行编译和打包, 并生成文档。
+- `npm start`/`npm run start`  在"watch"模式下运行`npm run build`。
+- `npm test`/`npm run test`  运行测试套件，并生成单测覆盖率报告。
+- `npm run test:watch`  在 [interactive watch mode](http://facebook.github.io/jest/docs/cli.html#watch) 下运行测试套件。
+- `npm run test:prod`  先运行`npm run lint`，再进行测试，并生成单测覆盖率报告（无缓存）。
+- `npm run deploy-docs`  将文档部署到 gh-pages，建议仅集成环境里使用，详细见 [自动集成](#travis)。
+- `npm run report-coverage`  将单测覆盖率报告提交到 coveralls，建议仅集成环境里使用，详细见 [自动集成](#travis)。
+- `npm run commit`  先对 git 暂存区的改动文件进行静态代码检查，再进行语义化提交。
+- `npm run semantic-release`  将 git 的主分支进行发布，建议仅集成环境里使用，详细见 [自动集成](#travis)。
+- `npm run compiled`  进行 TypeScript 的编译并输出结果（非打包）。
 
 ## 引导程序（命令行）
 
@@ -75,7 +75,7 @@ const library = require('your-library-name')
 - 配置库的 package.json、rollup.config.js、.travis.yml 等；
 - 修改并改名 src 和 test 下的文件；
 - 生成新的 README 文件；
-- 初始化 git，并完成首次提交；
+- 初始化 git，并完成首次提交（仅提交 `.gitignore` 文件）；
 - 清理初始化相关的文件。
 
 ![CN_2](https://calimanco.github.io/ts-library-starter/Screenshot/CN_2.png)
