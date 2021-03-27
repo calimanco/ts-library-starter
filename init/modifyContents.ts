@@ -15,9 +15,11 @@ async function replaceInfile(
         return
       }
       let content = buffer.toString()
-      from.forEach((reg, idx) => {
-        content = content.replace(reg, to[idx])
-      })
+      let point = 0
+      for (const reg of from) {
+        content = content.replace(reg, to[point])
+        point += 1
+      }
       fs.writeFile(filePath, content, err => {
         if (err != null) {
           reject(err)
@@ -44,7 +46,7 @@ export default async function modifyContents(
   }
 
   await new Promise<void>(resolve => {
-    modifyFiles.forEach(f => {
+    for (const f of modifyFiles) {
       replaceInfile(path.resolve(__dirname, '..', f), from, to)
         .then(() => {
           resultMsg.push(f)
@@ -58,7 +60,7 @@ export default async function modifyContents(
             resolve()
           }
         })
-    })
+    }
   })
 
   if (resultMsg.length !== 0) {

@@ -1,31 +1,38 @@
-const { cd, exec, echo, touch } = require('shelljs')
-const { readFileSync } = require('fs')
-const url = require('url')
+import { readFileSync, closeSync, openSync } from 'fs'
+import { execSync } from 'child_process'
+import { URL } from 'url'
 
 let repoUrl
-let pkg = JSON.parse(readFileSync('package.json'))
+const pkg = JSON.parse(readFileSync('package.json').toString())
 if (typeof pkg.repository === 'object') {
-  if (!pkg.repository.hasOwnProperty('url')) {
-    throw new Error('URL does not exist in repository section')
+  if (!Object.prototype.hasOwnProperty.call(pkg.repository, 'url')) {
+    throw new Error('URL does not exist in repository section.')
   }
   repoUrl = pkg.repository.url
 } else {
   repoUrl = pkg.repository
 }
 
-let parsedUrl = url.parse(repoUrl)
-let repository = (parsedUrl.host || '') + (parsedUrl.path || '')
-let ghToken = process.env.GH_TOKEN
+const parsedUrl = new URL(repoUrl)
+const repository = `${parsedUrl.host !== '' ? parsedUrl.host : ''}${
+  parsedUrl.pathname !== '' ? parsedUrl.pathname : ''
+}`
+const ghToken = process.env.GH_TOKEN
 
-echo('Deploying docs!!!')
-cd('docs')
-touch('.nojekyll')
-exec('git init')
-exec('git add .')
-exec('git config user.name "--author--"')
-exec('git config user.email "--email--"')
-exec('git commit -m "docs(docs): update gh-pages"')
-exec(
+if (ghToken == null) {
+  throw new Error('The ghToken does not exist in environment.')
+}
+
+console.log('Deploying docs!!!')
+process.chdir('docs')
+process.env.OLDPWD = process.cwd()
+closeSync(openSync('.nojekyll', 'w'))
+execSync('git init')
+execSync('git add .')
+execSync('git config user.name "--author--"')
+execSync('git config user.email "--email--"')
+execSync('git commit -m "docs(docs): update gh-pages"')
+execSync(
   `git push --force --quiet "https://${ghToken}@${repository}" master:gh-pages`
 )
-echo('Docs deployed!!')
+console.log('Docs deployed!!')

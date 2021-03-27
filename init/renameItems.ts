@@ -1,13 +1,15 @@
 import * as path from 'path'
 import * as colors from 'colors'
-import { renameSync } from 'fs'
+import { rename } from 'fs'
 import { getLang } from './common'
 
-function rename(name: string, from: RegExp[], to: string[]): string {
+function renameFile(name: string, from: RegExp[], to: string[]): string {
   let result = name
-  from.forEach((reg, idx) => {
-    result = name.replace(reg, to[idx])
-  })
+  let point = 0
+  for (const reg of from) {
+    result = name.replace(reg, to[point])
+    point += 1
+  }
   return result
 }
 
@@ -24,18 +26,22 @@ export default async function renameItems(
     return isFinish
   }
 
-  renameItems.forEach(f => {
-    try {
-      // f[0] 是原文件
-      // f[1] 是新文件
-      const newName = rename(f[1], from, to)
-      renameSync(
+  await new Promise<void>(resolve => {
+    for (const f of renameItems) {
+      const newName = renameFile(f[1], from, to)
+      rename(
         path.resolve(__dirname, '..', f[0]),
-        path.resolve(__dirname, '..', newName)
+        path.resolve(__dirname, '..', newName),
+        err => {
+          if (err != null) {
+            errMsg.push(err.message)
+            resolve()
+            return
+          }
+          resultMsg.push(`${f[0]} => ${newName}`)
+          resolve()
+        }
       )
-      resultMsg.push(`${f[0]} => ${newName}`)
-    } catch (err) {
-      errMsg.push(err.message)
     }
   })
 

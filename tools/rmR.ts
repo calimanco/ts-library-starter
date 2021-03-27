@@ -1,36 +1,8 @@
-import {
-  lstat,
-  unlink,
-  readdir,
-  rmdir,
-  existsSync,
-  readdirSync,
-  lstatSync,
-  unlinkSync,
-  rmdirSync
-} from 'fs'
+import { lstat, unlink, readdir, rmdir } from 'fs'
 import { join } from 'path'
 
-export default function rmRSync(dirPath: string): void {
-  if (existsSync(dirPath)) {
-    if (!lstatSync(dirPath).isDirectory()) {
-      unlinkSync(dirPath)
-      return
-    }
-    for (const entry of readdirSync(dirPath)) {
-      const entryPath = join(dirPath, entry)
-      if (lstatSync(entryPath).isDirectory()) {
-        rmRSync(entryPath)
-      } else {
-        unlinkSync(entryPath)
-      }
-    }
-    rmdirSync(dirPath)
-  }
-}
-
-export default async function rmR(dirPath: string): void {
-  return new Promise((resolve, reject) => {
+export default async function rmR(dirPath: string): Promise<void> {
+  return await new Promise((resolve, reject) => {
     lstat(dirPath, (err, stats) => {
       if (err != null) {
         reject(err)
@@ -47,14 +19,24 @@ export default async function rmR(dirPath: string): void {
             promises.push(rmR(join(dirPath, entry)))
           }
           Promise.all(promises)
-          rmdir()
+            .then(() => {
+              rmdir(dirPath, err => {
+                if (err != null) {
+                  reject(err)
+                }
+                resolve()
+              })
+            })
+            .catch(err => {
+              reject(err)
+            })
         })
-
       } else {
         unlink(dirPath, err => {
           if (err != null) {
             reject(err)
           }
+          resolve()
         })
       }
     })

@@ -1,6 +1,6 @@
 import * as path from 'path'
 import * as colors from 'colors'
-import rmRSync from '../tools/rmRSync'
+import rmR from '../tools/rmR'
 import { getLang } from './common'
 
 export default async function removeItems(rmItems: string[]): Promise<boolean> {
@@ -12,12 +12,21 @@ export default async function removeItems(rmItems: string[]): Promise<boolean> {
     return isFinish
   }
 
-  rmItems.forEach(f => {
-    try {
-      rmRSync(path.join(__dirname, '..', f))
-      resultMsg.push(f)
-    } catch (err) {
-      errMsg.push(err.message)
+  await new Promise<void>(resolve => {
+    for (const f of rmItems) {
+      rmR(path.join(__dirname, '..', f))
+        .then(() => {
+          resultMsg.push(f)
+          if (length === resultMsg.length + errMsg.length) {
+            resolve()
+          }
+        })
+        .catch(err => {
+          errMsg.push(err.message)
+          if (length === resultMsg.length + errMsg.length) {
+            resolve()
+          }
+        })
     }
   })
 

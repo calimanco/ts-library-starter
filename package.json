@@ -34,8 +34,7 @@
     "semantic-release": "semantic-release --branches=--branch--",
     "precommit": "lint-staged",
     "compiled": "tsc",
-    "postinstall": "ts-node init/index.ts",
-    "try": "ts-node init/prepareDemoEnv.ts"
+    "postinstall": "ts-node init/index.ts"
   },
   "lint-staged": {
     "{src,test}/**/**/*.ts": [
@@ -51,12 +50,11 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^11.2.0",
-    "@types/jest": "^26.0.21",
+    "@rollup/plugin-node-resolve": "^11.2.1",
+    "@types/jest": "^26.0.22",
     "@types/lodash": "^4.14.168",
-    "@types/node": "^14.14.35",
+    "@types/node": "^14.14.37",
     "@types/prompt": "^1.1.0",
-    "@types/shelljs": "^0.8.8",
     "@types/which": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
@@ -65,7 +63,7 @@
     "coveralls": "^3.0.2",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^7.22.0",
+    "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-config-standard-with-typescript": "^20.0.0",
@@ -82,12 +80,11 @@
     "lodash": "^4.17.21",
     "prettier": "^2.2.1",
     "prompt": "^1.0.0",
-    "rollup": "^2.42.4",
+    "rollup": "^2.43.0",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
     "semantic-release": "^17.4.2",
-    "shelljs": "^0.8.3",
     "ts-jest": "^26.5.4",
     "ts-node": "^9.1.1",
     "tslib": "^2.1.0",

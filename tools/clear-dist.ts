@@ -1,6 +1,14 @@
 import { join } from 'path'
-import rmRSync from './rmRSync'
+import rmR from './rmR'
 
 const distDir = join(__dirname, '..', 'dist')
 
-rmRSync(distDir)
+rmR(distDir)
+  .then(() => {
+    console.log('Clear dist done!')
+  })
+  .catch(err => {
+    if (err != null) {
+      console.error(err)
+    }
+  })
