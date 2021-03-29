@@ -41,7 +41,7 @@ export default async function modifyContents(
   const resultMsg: string[] = []
   const errMsg: string[] = []
 
-  if (modifyFiles.length === 0) {
+  if (length === 0) {
     return isFinish
   }
 

@@ -9,7 +9,7 @@ export default async function removeItems(rmItems: string[]): Promise<boolean> {
   const resultMsg: string[] = []
   const errMsg: string[] = []
 
-  if (rmItems.length === 0) {
+  if (length === 0) {
     return isFinish
   }
 

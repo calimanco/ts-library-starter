@@ -10,7 +10,7 @@ export const langDir = 'lang'
 // 要删除的目录
 export const rmDirs = ['.git', 'init']
 // 要删除的文件
-export const rmFiles = ['.gitattributes', 'README_EN.md']
+export const rmFiles = ['README_EN.md']
 // 要修改的文件
 export const modifyFiles = [
   'LICENSE',

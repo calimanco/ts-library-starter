@@ -18,11 +18,12 @@ export default async function renameItems(
   from: RegExp[],
   to: string[]
 ): Promise<boolean> {
+  const length = renameItems.length
   let isFinish = true
   const resultMsg: string[] = []
   const errMsg: string[] = []
 
-  if (renameItems.length === 0) {
+  if (length === 0) {
     return isFinish
   }
 
@@ -35,11 +36,15 @@ export default async function renameItems(
         err => {
           if (err != null) {
             errMsg.push(err.message)
-            resolve()
+            if (length === resultMsg.length + errMsg.length) {
+              resolve()
+            }
             return
           }
           resultMsg.push(`${f[0]} => ${newName}`)
-          resolve()
+          if (length === resultMsg.length + errMsg.length) {
+            resolve()
+          }
         }
       )
     }

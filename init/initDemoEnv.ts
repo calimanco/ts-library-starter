@@ -9,7 +9,7 @@ export default async function initDemoEnv(): Promise<boolean> {
 
   try {
     console.log(getLang(30))
-    execSync('npm i play-anywhere --save-dev')
+    execSync('npm i play-anywhere --save-dev --no-package-lock')
     mkdirSync(join(__dirname, '..', 'demos'))
     console.log(colors.green(getLang(28)))
   } catch (err) {
