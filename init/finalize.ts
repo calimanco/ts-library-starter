@@ -61,7 +61,7 @@ export default async function finalize(
   const length = taskList.length
 
   await new Promise<void>(resolve => {
-    taskList.forEach(task => {
+    for (const task of taskList) {
       task(setupConfig)
         .then(res => {
           resultMsg.push(res)
@@ -75,7 +75,7 @@ export default async function finalize(
             resolve()
           }
         })
-    })
+    }
   })
 
   if (resultMsg.length !== 0) {

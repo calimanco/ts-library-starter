@@ -29,5 +29,6 @@
   "27": "Do you want to init the demo environment? [Yes/No]",
   "28": "Complete demo environment initialization!",
   "29": "Some errors occurred initializing demo environment:",
-  "30": "The demo environment is initialing, it will take some time..."
+  "30": "The demo environment is initialing, it will take some time...",
+  "31": "Init demo environment"
 }
