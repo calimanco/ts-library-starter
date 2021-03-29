@@ -30,5 +30,6 @@
   "28": "Complete demo environment initialization!",
   "29": "Some errors occurred initializing demo environment:",
   "30": "The demo environment is initialing, it will take some time...",
-  "31": "Init demo environment"
+  "31": "Init demo environment",
+  "32": "If you need to clean up the dependencies used for initialization, please run:"
 }
