@@ -37,7 +37,7 @@ export default async function setLibraryName(
     properties[0].message = colors.reset(getLang(9))
     properties[1].description = colors.cyan(getLang(21))
     properties[2].description = colors.cyan(getLang(27))
-    properties[2].message = colors.cyan(getLang(23))
+    properties[2].message = colors.reset(getLang(23))
 
     if (defaultName != null) {
       properties[0].default = defaultName
