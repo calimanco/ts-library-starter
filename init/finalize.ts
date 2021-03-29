@@ -5,7 +5,7 @@ import * as colors from 'colors'
 import { getLang } from './common'
 
 async function modifyPkgFile(setupConfig?: ISetupConfig): Promise<string> {
-  const jsonPackage = path.resolve(__dirname, '..', 'package.json')
+  const jsonPackage = path.join(__dirname, '..', 'package.json')
   return await new Promise((resolve, reject) => {
     fs.readFile(jsonPackage, (err, buffer) => {
       if (err != null) {
@@ -29,7 +29,7 @@ async function modifyPkgFile(setupConfig?: ISetupConfig): Promise<string> {
 }
 
 async function modifyGitignore(): Promise<string> {
-  const gitignore = path.resolve(__dirname, '..', '.gitignore')
+  const gitignore = path.join(__dirname, '..', '.gitignore')
   return await new Promise((resolve, reject) => {
     fs.readFile(gitignore, (err, buffer) => {
       if (err != null) {

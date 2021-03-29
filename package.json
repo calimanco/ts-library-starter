@@ -34,7 +34,8 @@
     "semantic-release": "semantic-release --branches=--branch--",
     "precommit": "lint-staged",
     "compiled": "tsc",
-    "postinstall": "ts-node init/index.ts"
+    "postinstall": "ts-node init/index.ts",
+    "clear-init-dependencies": "ts-node tools/clear-init-dependencies.ts"
   },
   "lint-staged": {
     "{src,test}/**/**/*.ts": [

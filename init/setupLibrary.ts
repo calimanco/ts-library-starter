@@ -98,7 +98,7 @@ export default async function setupLibrary(
     console.log(colors.yellow(getLang(15)))
   }
   console.log('')
-  console.group(colors.underline.white(getLang(32)))
-  console.log('ts-node dist/clear-init-dependencies.ts')
-  console.groupEnd()
+  console.log(getLang(32))
+  console.log('npm run clear-init-dependencies')
+  console.log('')
 }
