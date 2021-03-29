@@ -4,6 +4,7 @@ import rmR from '../tools/rmR'
 import { getLang } from './common'
 
 export default async function removeItems(rmItems: string[]): Promise<boolean> {
+  const length = rmItems.length
   let isFinish = true
   const resultMsg: string[] = []
   const errMsg: string[] = []

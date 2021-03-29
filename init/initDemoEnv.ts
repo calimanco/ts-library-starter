@@ -8,8 +8,9 @@ export default async function initDemoEnv(): Promise<boolean> {
   let isFinish = true
 
   try {
+    console.log(getLang(30))
     execSync('npm i play-anywhere --save-dev')
-    mkdirSync(join(__dirname, 'demos'))
+    mkdirSync(join(__dirname, '..', 'demos'))
     console.log(colors.green(getLang(28)))
   } catch (err) {
     console.group(colors.underline.red(getLang(29)))
