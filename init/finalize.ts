@@ -1,9 +1,10 @@
+import { ISetupConfig } from './types'
 import * as path from 'path'
 import * as fs from 'fs'
 import * as colors from 'colors'
 import { getLang } from './common'
 
-async function modifyPkgFile(): Promise<string> {
+async function modifyPkgFile(setupConfig?: ISetupConfig): Promise<string> {
   const jsonPackage = path.resolve(__dirname, '..', 'package.json')
   return await new Promise((resolve, reject) => {
     fs.readFile(jsonPackage, (err, buffer) => {
@@ -13,6 +14,9 @@ async function modifyPkgFile(): Promise<string> {
       }
       const pkg = JSON.parse(buffer.toString())
       delete pkg.scripts.postinstall
+      if (setupConfig?.isDemoEnv === true) {
+        pkg.scripts['dev:web'] = 'play-anywhere demos'
+      }
       fs.writeFile(jsonPackage, JSON.stringify(pkg, null, 2) + '\n', err => {
         if (err != null) {
           reject(err)
@@ -44,16 +48,21 @@ async function modifyGitignore(): Promise<string> {
   })
 }
 
-export default async function finalize(): Promise<boolean> {
+export default async function finalize(
+  setupConfig: ISetupConfig
+): Promise<boolean> {
   let isFinish = true
   const resultMsg: string[] = []
   const errMsg: string[] = []
-  const taskList = [modifyPkgFile, modifyGitignore]
+  const taskList: Array<(setupConfig?: ISetupConfig) => Promise<string>> = [
+    modifyPkgFile,
+    modifyGitignore
+  ]
   const length = taskList.length
 
   await new Promise<void>(resolve => {
     taskList.forEach(task => {
-      task()
+      task(setupConfig)
         .then(res => {
           resultMsg.push(res)
           if (length === resultMsg.length + errMsg.length) {

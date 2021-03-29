@@ -1,4 +1,4 @@
-import * as path from 'path'
+import { join } from 'path'
 import * as colors from 'colors'
 import { execSync } from 'child_process'
 import { getLang } from './common'
@@ -15,8 +15,8 @@ export default async function initGit(
   const resultMsg: string[] = []
   const errMsg: string[] = []
 
-  const gitCommands = [
-    `git init "${path.resolve(__dirname, '..')}"`,
+  const commands = [
+    `git init "${join(__dirname, '..')}"`,
     `git add .gitignore`,
     `git config --local user.name "${author}"`,
     `git config --local user.email "${email}"`,
@@ -25,23 +25,23 @@ export default async function initGit(
   ]
 
   if (remote != null && remote.length > 0) {
-    gitCommands.push(`git remote add origin "${remote}"`)
+    commands.push(`git remote add origin "${remote}"`)
 
     if (isPush) {
-      gitCommands.push(`git push -u origin ${branch}`)
+      commands.push(`git push -u origin ${branch}`)
     }
   }
 
-  gitCommands.forEach(c => {
-    try {
+  try {
+    for (const c of commands) {
       const gitInitOutput = execSync(c).toString()
       if (gitInitOutput !== '') {
         resultMsg.push(gitInitOutput)
       }
-    } catch (err) {
-      errMsg.push(err.message)
     }
-  })
+  } catch (err) {
+    errMsg.push(err.message)
+  }
 
   if (resultMsg.length !== 0) {
     console.group(colors.underline.white(getLang(19)))

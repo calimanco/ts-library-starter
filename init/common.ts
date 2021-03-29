@@ -1,54 +1,56 @@
+import { ILangPkg, ILangPkgInfo } from './types'
 import * as path from 'path'
 import * as fs from 'fs'
 import { kebabCase } from 'lodash'
 import { defaultLang } from './config'
 
-export interface LangPkg {
-  [propName: string]: string
-}
+export async function readLangDir(name: string): Promise<ILangPkgInfo[]> {
+  const dirPath = path.join(__dirname, name)
+  const result: ILangPkgInfo[] = []
 
-export interface LangPkgInfo {
-  name: string
-  file: string
-  filePath: string
-}
-
-export async function readLangDir(name: string): Promise<LangPkgInfo[]> {
-  const dirPath = path.resolve(__dirname, name)
-  return await new Promise((resolve, reject) => {
-    fs.readdir(dirPath, (err, files) => {
-      if (err != null) {
-        reject(err)
-        return
-      }
-      const result: LangPkgInfo[] = []
-      const filteredResult = files.filter(i => {
-        return (
-          path.extname(i).toLocaleLowerCase() === '.json' &&
-          fs.statSync(path.resolve(dirPath, i)).isFile()
-        )
-      })
-      if (filteredResult.length === 0) {
-        reject(new Error('Can not find any language package.'))
-        return
-      }
-      filteredResult.forEach(file => {
-        const filePath = path.resolve(dirPath, file)
-        const name = path.basename(file)
-        const pkgInfo = {
-          name,
-          file,
-          filePath
+  async function buildLangPkgInfo(
+    filePath: string,
+    file: string,
+    name: string
+  ): Promise<void> {
+    return await new Promise((resolve, reject) => {
+      fs.lstat(filePath, (err, stats) => {
+        if (err != null) {
+          reject(err)
+          return
         }
-        if (name === defaultLang) {
-          result.unshift(pkgInfo)
-        } else {
-          result.push(pkgInfo)
+        if (stats.isFile()) {
+          const pkgInfo = {
+            name,
+            file,
+            filePath
+          }
+          if (name === defaultLang) {
+            result.unshift(pkgInfo)
+          } else {
+            result.push(pkgInfo)
+          }
         }
-        resolve(result)
+        resolve()
       })
     })
-  })
+  }
+
+  const files = await fs.promises.readdir(dirPath)
+  const promises = []
+  for (const file of files) {
+    const filePath = path.join(dirPath, file)
+    const { name, ext } = path.parse(filePath)
+    if (ext.toLocaleLowerCase() !== '.json') {
+      continue
+    }
+    promises.push(buildLangPkgInfo(filePath, file, name))
+  }
+  await Promise.all(promises)
+  if (result.length === 0) {
+    throw new Error('Can not find any language package.')
+  }
+  return result
 }
 
 export function isSkipAsking(): boolean {
@@ -66,22 +68,22 @@ export function isSkipAsking(): boolean {
   return false
 }
 
-const langPkgCache: { [propName: string]: LangPkg } = {}
+const langPkgCache: { [propName: string]: ILangPkg } = {}
 let langPkgPointer: string = ''
 
-export async function setLangPkg(langPkg: LangPkgInfo): Promise<LangPkg> {
+export async function setLangPkg(langPkgInfo: ILangPkgInfo): Promise<ILangPkg> {
   return await new Promise((resolve, reject) => {
-    if (typeof langPkgCache[langPkg.name] !== 'undefined') {
-      resolve(langPkgCache[langPkg.name])
+    if (typeof langPkgCache[langPkgInfo.name] !== 'undefined') {
+      resolve(langPkgCache[langPkgInfo.name])
     }
-    fs.readFile(langPkg.filePath, (err, buffer) => {
+    fs.readFile(langPkgInfo.filePath, (err, buffer) => {
       if (err != null) {
         reject(err)
       }
       try {
-        langPkgCache[langPkg.name] = JSON.parse(buffer.toString())
-        langPkgPointer = langPkg.name
-        resolve(langPkgCache[langPkg.name])
+        langPkgCache[langPkgInfo.name] = JSON.parse(buffer.toString())
+        langPkgPointer = langPkgInfo.name
+        resolve(langPkgCache[langPkgInfo.name])
       } catch (err) {
         reject(err)
       }

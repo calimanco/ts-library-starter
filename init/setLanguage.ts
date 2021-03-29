@@ -1,6 +1,7 @@
+import { ILangPkg, ILangPkgInfo } from './types'
 import * as prompt from 'prompt'
 import * as colors from 'colors'
-import { LangPkg, LangPkgInfo, setLangPkg } from './common'
+import { setLangPkg } from './common'
 
 const properties: prompt.RevalidatorSchema[] = [
   {
@@ -14,8 +15,8 @@ const properties: prompt.RevalidatorSchema[] = [
 ]
 
 export default async function setLanguage(
-  langPkgList: LangPkgInfo[]
-): Promise<LangPkg> {
+  langPkgList: ILangPkgInfo[]
+): Promise<ILangPkg> {
   const maxIndex = langPkgList.length - 1
 
   console.group(
@@ -32,7 +33,7 @@ export default async function setLanguage(
   properties[0].message = colors.reset(`Must respond 0 to ${maxIndex}`)
 
   return await new Promise((resolve, reject) => {
-    prompt.get(properties, function (err: any, res: any) {
+    prompt.get(properties, (err, res: any) => {
       if (err != null) {
         reject(err)
         return

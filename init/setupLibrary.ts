@@ -1,26 +1,16 @@
+import { ISetupConfig } from './types'
 import * as colors from 'colors'
 import removeItems from './removeItems'
 import modifyContents from './modifyContents'
 import renameItems from './renameItems'
 import finalize from './finalize'
 import initGit from './initGit'
+import initDemoEnv from './initDemoEnv'
 import { getLang } from './common'
 import { rmDirs, rmFiles, modifyFiles, renameFiles } from './config'
 
-interface SetupConfig {
-  libraryName: string
-  description: string
-  author: string
-  email: string
-  remote: string
-  branch: string
-  firstCommitMsg: string
-  isPush: boolean
-  year: string
-}
-
 export default async function setupLibrary(
-  setupConfig: SetupConfig
+  setupConfig: ISetupConfig
 ): Promise<void> {
   const {
     libraryName,
@@ -31,6 +21,7 @@ export default async function setupLibrary(
     branch,
     firstCommitMsg,
     isPush,
+    isDemoEnv,
     year
   } = setupConfig
 
@@ -68,12 +59,19 @@ export default async function setupLibrary(
   )
   console.log('')
 
+  // 初始化 demo 环境
+  let isInitDemoEnv = true
+  if (isDemoEnv) {
+    isInitDemoEnv = await initDemoEnv()
+    console.log('')
+  }
+
   // 清理目录和文件
   const isRemoveFinished = await removeItems(rmDirs.concat(rmFiles))
   console.log('')
 
   // 善后
-  const isFinalizeFinished = await finalize()
+  const isFinalizeFinished = await finalize(setupConfig)
   console.log('')
 
   // 初始化 git
@@ -91,6 +89,7 @@ export default async function setupLibrary(
     isModifyFinished &&
     isRenameFinished &&
     isRemoveFinished &&
+    isInitDemoEnv &&
     isInitGitFinished &&
     isFinalizeFinished
   ) {

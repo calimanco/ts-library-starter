@@ -1,3 +1,4 @@
+import { ISetupConfig } from './types'
 import * as prompt from 'prompt'
 import * as colors from 'colors'
 import * as which from 'which'
@@ -20,7 +21,7 @@ import { langDir } from './config'
 // 清屏
 process.stdin.write('\x1B[2J\x1B[0f')
 
-const setupConfig = {
+const setupConfig: ISetupConfig = {
   libraryName: '',
   description: '',
   author: '',
@@ -29,6 +30,7 @@ const setupConfig = {
   branch: 'main',
   firstCommitMsg: 'First commit.',
   isPush: false,
+  isDemoEnv: true,
   year: new Date().getFullYear().toString()
 }
 
@@ -78,11 +80,12 @@ async function main(): Promise<void> {
     console.log(colors.magenta(`\n${getLang(0)}\n`))
 
     // 设置库名
-    const { libraryName, description } = await setLibraryConfig(
+    const { libraryName, description, isDemoEnv } = await setLibraryConfig(
       setupConfig.libraryName
     )
     setupConfig.libraryName = libraryName.trim()
     setupConfig.description = description.trim()
+    setupConfig.isDemoEnv = isDemoEnv.toLowerCase().charAt(0) === 'y'
 
     // 设置用户名和邮箱
     const { author, email } = await setAuthorInfo(
