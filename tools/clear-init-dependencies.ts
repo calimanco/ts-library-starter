@@ -12,7 +12,7 @@ const dependencyList = [
 
 try {
   const jsonPackage = join(__dirname, '..', 'package.json')
-  const pkg = JSON.parse(readFileSync(jsonPackage).toString())
+  let pkg = JSON.parse(readFileSync(jsonPackage).toString())
   if (pkg.scripts['clear-init-dependencies'] == null) {
     console.log(
       'The dependencies have been cleaned up, you don’t need to run the script repeatedly.'
@@ -27,6 +27,7 @@ try {
   // run npm
   execSync(`npm uninstall${listStr}`)
   // edit package.json
+  pkg = JSON.parse(readFileSync(jsonPackage).toString())
   delete pkg.scripts['clear-init-dependencies']
   writeFileSync(jsonPackage, JSON.stringify(pkg, null, 2) + '\n')
   // log
