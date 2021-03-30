@@ -5,7 +5,7 @@
 ## 简介
 
 用于构建 TypeScript 库的零配置脚手架（起步项目）。  
-支持多语言的友好引导程序，帮助您完成 git 和从开发、测试到发布的完整流程配置。
+支持多语言的友好引导程序。帮助您完成从开发、测试到发布的完整流程配置。
 
 ![CN_1](https://calimanco.github.io/ts-library-starter/Screenshot/CN_1.png)
 
@@ -28,6 +28,8 @@ git clone https://github.com/calimanco/ts-library-starter.git YOURFOLDERNAME
 cd YOURFOLDERNAME
 # Run npm install and follow the interactive guide to answer questions. That's all!
 npm install
+# Clean up dependencies after installation (optional).
+npm run clear-init-dependencies
 ```
 
 ```javascript
@@ -40,8 +42,8 @@ const library = require('your-library-name')
 
 ## 特性
 
-- 引导程序支持多语言，现有中文和英文，更多语言可以轻松添加。
-- 零配置，引导程序会自动完成 git、库相关信息和各种工具的配置。
+- 引导程序支持多语言。现有中文和英文，更多语言可以轻松添加。
+- 零配置，引导程序会自动完成配置（所有选项都有默认值）。
 - 使用 Prettier 和 ESLint 保证代码质量。
 - 使用 Jest 进行单元测试，并输出覆盖率报告，发布到 Coveralls。
 - 使用 RollupJS 进行编译和打包。
@@ -49,13 +51,14 @@ const library = require('your-library-name')
 - 使用 lint-staged 和 commitizen 语义化提交。
 - 使用 semantic-release 规范化发布。
 - 支持 Travis 自动化集成（构建、测试、发布）。
+- 使用 play-anywhere 快速展示 demo（可选）。
 
 ## NPM 命令
 
 - `npm run lint`  对 src 和 test 目录进行静态代码检查。
 - `npm run lint:md`  对目录下的所有 Markdown 文件进行静态代码检查。
 - `npm run build`  先移除 dist 目录，再进行编译和打包, 并生成文档。
-- `npm start`/`npm run start`  在"watch"模式下运行`npm run build`。
+- `npm start` / `npm run start` / `npm run dev`  在"watch"模式下运行`npm run build`。
 - `npm test`/`npm run test`  运行测试套件，并生成单测覆盖率报告。
 - `npm run test:watch`  在 [interactive watch mode](http://facebook.github.io/jest/docs/cli.html#watch) 下运行测试套件。
 - `npm run test:prod`  先运行`npm run lint`，再进行测试，并生成单测覆盖率报告（无缓存）。
@@ -64,10 +67,11 @@ const library = require('your-library-name')
 - `npm run commit`  先对 git 暂存区的改动文件进行静态代码检查，再进行语义化提交。
 - `npm run semantic-release`  将 git 的主分支进行发布，建议仅集成环境里使用，详细见 [自动集成](#travis)。
 - `npm run compiled`  进行 TypeScript 的编译并输出结果（非打包）。
+- `npm run dev:web`  运行 demo 展示（可选）。
 
 ## 引导程序（命令行）
 
-当运行完 `npm install` 后，将会启动 init 目录下的引导脚本。
+当运行完 `npm install` 后，将会启动 init 目录下的引导脚本。  
 它会提出多个问题，帮助您完成库的配置。
 
 ### 流程
@@ -75,18 +79,20 @@ const library = require('your-library-name')
 - 配置库的 package.json、rollup.config.js、.travis.yml 等；
 - 修改并改名 src 和 test 下的文件；
 - 生成新的 README 文件；
-- 初始化 git，并完成首次提交（仅提交 `.gitignore` 文件）；
-- 清理初始化相关的文件。
+- 初始化 demo 环境（可选）；
+- 清理目录和文件；
+- 更新 package.json 和 .gitignore；
+- 初始化 Git，并完成首次提交（仅提交 `.gitignore` ）；
 
 ![CN_2](https://calimanco.github.io/ts-library-starter/Screenshot/CN_2.png)
 ![CN_3](https://calimanco.github.io/ts-library-starter/Screenshot/CN_3.png)
 
 ### 默认值
 
-- `libraryName`：库名，来自对库所在文件夹名的"kebabCase"转换，比如"MyProgram"会被转换为"my-program"。
-- `author`：作者，来自运行 `git config user.name` 的输出。
-- `email`：邮箱，来自运行`git config user.email` 的输出。
-- `branch`：主分支名，Github 的建议叫 main。
+- `libraryName`  库名，来自对库所在文件夹名的"kebabCase"转换，比如"MyProgram"会被转换为"my-program"。
+- `author`  作者，来自运行 `git config user.name` 的输出。
+- `email`  邮箱，来自运行`git config user.email` 的输出。
+- `branch`  主分支名，Github 的建议叫 main。
 
 ### 增加语言支持
 
@@ -133,9 +139,9 @@ const library = require('your-library-name')
 需要如下几个环境变量，请将他们写入集成环境中。  
 如果你想要在本地运行相关命令，也是需要的。
 
-- NPM_TOKEN：通过 NPM 获取，用于 `npm run semantic-release`。
-- COVERALLS_REPO_TOKEN：通过 Coveralls 获取，用于 `npm run report-coverage`。
-- GH_TOKEN：通过 Github 获取，用于 `npm run deploy-docs`。
+- NPM_TOKEN  通过 NPM 获取，用于 `npm run semantic-release`。
+- COVERALLS_REPO_TOKEN  通过 Coveralls 获取，用于 `npm run report-coverage`。
+- GH_TOKEN  通过 Github 获取，用于 `npm run deploy-docs`。
 
 ### 启动
 
@@ -181,6 +187,18 @@ const library = require('your-library-name')
 
 - 当 `process.env.CI` 会有值时，这种情况一般出现在被某些脚手架工具调用去情况。
 - 使用 `npm install -y` 进行安装。
+
+### 清理引导程序的依赖
+
+运行后，"clear-init-dependencies"命令也将从 package.json 中删除。
+
+```bash
+npm run clear-init-dependencies
+```
+
+### demo 环境
+
+更多的配置和使用，请参考 play-anywhere [文档](https://github.com/calimanco/play-anywhere) 。
 
 ## 许可证
 
