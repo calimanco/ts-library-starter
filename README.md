@@ -85,7 +85,6 @@ const library = require('your-library-name')
 - 初始化 Git，并完成首次提交（仅提交 `.gitignore` ）；
 
 ![CN_2](https://calimanco.github.io/ts-library-starter/Screenshot/CN_2.png)
-![CN_3](https://calimanco.github.io/ts-library-starter/Screenshot/CN_3.png)
 
 ### 默认值
 
@@ -96,7 +95,7 @@ const library = require('your-library-name')
 
 ### 增加语言支持
 
-引导程序会先读取 init/lang 目录下语言包。  
+引导程序会先读取 `init/lang` 目录下语言包。  
 语言包是 json 格式的文件，新赠 json 文件的内容只要保持 key 不变，就可以被正确的读取。  
 如果您对本项目感兴趣，欢迎您提供更多本地化翻译。
 
@@ -111,33 +110,24 @@ const library = require('your-library-name')
 
 采用 Rollup 作为打包的程序，已经配置了常用的插件。默认会在 dist 目录下生成下列文件：
 
-- yourLibraryName.umd.js：兼容 amd、cjs 和 iife，未压缩，有 sourcemap。
-- yourLibraryName.umd.min.js：兼容 amd、cjs 和 iife，已压缩，无 sourcemap。
-- yourLibraryName.es6.js：ES 模块文件，未压缩，有 sourcemap。
+- `yourLibraryName.umd.js`  兼容 amd、cjs 和 iife，未压缩，有 sourcemap。
+- `yourLibraryName.umd.min.js`  兼容 amd、cjs 和 iife，已压缩，无 sourcemap。
+- `yourLibraryName.es6.js`  ES 模块文件，未压缩，有 sourcemap。
 
 ## 自动集成（Travis）
 
+配置请查看 `.travis.yml` 文件，参考 Travis [文档](https://docs.travis-ci.com/) 。
+
 ### 前提条件
 
-你需要拥有下下列账号，并授权您的项目 git 仓库。
+你需要拥有下下列账号，并授权您的项目 Github 仓库。
 
 - [NPM](https://www.npmjs.com/)
 - [Travis CI](https://travis-ci.com/)
 - [Coveralls](https://coveralls.io/)
 
-### 脚本已配置的功能
-
-.travis.yml 文件所配置的功能。其中测试和构建是必须执行项，其余均要满足某些条件才会执行。
-
-- 测试和构建，`npm run test:prod && npm run build`；
-- 提交单测覆盖率报告，`npm run report-coverage`；
-- 如果是主分支，部署文档，`npm run deploy-docs`；
-- 如果是主分支，自动发布到 NPM，`npm run semantic-release`。
-
-### 环境变量
-
 需要如下几个环境变量，请将他们写入集成环境中。  
-如果你想要在本地运行相关命令，也是需要的。
+如果你想要在本地运行相关命令，也是需要的。  
 
 - NPM_TOKEN  通过 NPM 获取，用于 `npm run semantic-release`。
 - COVERALLS_REPO_TOKEN  通过 Coveralls 获取，用于 `npm run report-coverage`。
@@ -145,37 +135,35 @@ const library = require('your-library-name')
 
 ### 启动
 
-引导程序已经配置好 .travis.yml，只需要有提交代码到 Github 就会自动被 Travis 拉取并运行。  
-也可以手动在 Travis 里手动触发。
+只需要有提交代码到 Github 就会自动被 Travis 拉取并运行。  
+也可以手动在 Travis 里手动触发。  
 
 ### 文档部署
 
 自动生成的文档会部署到 Github 仓库的 gh-pages 分支，并且开启了 GitHub Pages 的功能，整个分支将成为一个静态网页。  
-默认不会公开，可通过`https://<yourGithubName>.github.io/{yourLibraryName}` 访问。
+默认不会公开，可通过`https://<yourGithubName>.github.io/{yourLibraryName}` 访问。  
 
 ### 发布
 
-当满足一定条件时，会进行如下发布操作：
+自动发布是需要满足一定条件的，依据提交时的提交信息进行判断，具体判断参考 [semantic-release](https://github.com/semantic-release/semantic-release) 。  
+建议使用 `npm run commit` 进行语义化提交，它能引导您自动生成符合规范的提交信息。  
+
+发布操作如下：  
 
 - 自动发布到 NPM；
 - 创建版本 Tag；
-- 创建 Github release，自动填写 Changelog，并且上传 yourLibraryName.umd.js 和 yourLibraryName.umd.min.js 作为 Assets。
+- 创建 Github release，自动填写 Changelog，并且上传 `yourLibraryName.umd.js` 和 `yourLibraryName.umd.min.js` 作为 Assets。
 
 ### 注意事项
 
-- 请确保 package.json 里的 repository.url 有写入您的项目仓库地址。
+- 请确保 package.json 里的 `repository.url` 有写入您的项目仓库地址。
 - 请确保包名在 NPM 上未被使用，可以使用 `npm view YOURFOLDERNAME` 命令进行检查。
 
 ## 说明
 
-### 自动发布的条件
-
-自动发布是需要满足一定条件的，依据提交时的提交信息进行判断，具体判断参考 [semantic-release](https://github.com/semantic-release/semantic-release) 。  
-建议使用 `npm run commit` 进行语义化提交，它能引导您自动生成符合规范的提交信息。
-
 ### 代码规范
 
-采用了 JavaScript Standard Style 规范，对于 Typescript 文件使用了 eslint-config-standard-with-typescript 扩展规范。  
+采用了 `JavaScript Standard Style` 规范，对于 Typescript 文件使用了 `eslint-config-standard-with-typescript` 扩展规范。  
 关闭了所有不必要的或可能与 Prettier 冲突的规则。
 
 - [JavaScript Standard Style](https://standardjs.com/)
@@ -183,22 +171,24 @@ const library = require('your-library-name')
 
 ### 跳过引导程序的交互
 
-以下两种情况，引导程序将不会进行提问，全部使用默认进行配置。
+以下两种情况，引导程序将不会进行提问，全部使用默认进行配置。  
 
 - 当 `process.env.CI` 会有值时，这种情况一般出现在被某些脚手架工具调用去情况。
 - 使用 `npm install -y` 进行安装。
 
-### 清理引导程序的依赖
+### 清理依赖
 
-运行后，"clear-init-dependencies"命令也将从 package.json 中删除。
+您可以轻松地清理掉引导程序的依赖。  
 
 ```bash
 npm run clear-init-dependencies
 ```
 
-### demo 环境
+运行后，"clear-init-dependencies"命令也将从 package.json 中删除。
 
-更多的配置和使用，请参考 play-anywhere [文档](https://github.com/calimanco/play-anywhere) 。
+### Demo 环境
+
+这是可选的功能，如果未在初始化时安装，请参考 `play-anywhere` [文档](https://github.com/calimanco/play-anywhere) 。
 
 ## 许可证
 
