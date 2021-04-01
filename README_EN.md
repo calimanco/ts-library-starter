@@ -43,6 +43,7 @@ const library = require('your-library-name')
 ## Features
 
 - The guide program supports multiple languages. Existing Chinese and English, more languages can be added easily.
+- All scripts support cross-platform.
 - Zero configuration, the guide program will automatically complete the configuration (all options have default values).
 - Use Prettier and ESLint to ensure code quality.
 - Use Jest for unit testing, output coverage reports, and publish to Coveralls.
