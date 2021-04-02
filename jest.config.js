@@ -1,7 +1,5 @@
 module.exports = {
-  transform: {
-    '.(ts|tsx)': 'ts-jest'
-  },
+  preset: 'ts-jest',
   testEnvironment: 'jsdom',
   testRegex: '/test/.*\\.(test|spec)\\.(ts)$',
   moduleFileExtensions: ['ts', 'tsx', 'js'],
@@ -15,5 +13,10 @@ module.exports = {
     }
   },
   collectCoverageFrom: ['src/*.{js,ts}', 'src/**/*.{js,ts}'],
-  setupFilesAfterEnv: ['<rootDir>/test/boot.ts']
+  setupFilesAfterEnv: ['<rootDir>/test/boot.ts'],
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.json'
+    }
+  }
 }
