@@ -15,6 +15,7 @@
     "importHelpers":  true,
     "noResolve": false,
     "noEmit": false,
+    "declarationDir": "dist/types",
     "outDir": "compiled",
     "typeRoots": ["node_modules/@types"],
     "skipLibCheck": true
