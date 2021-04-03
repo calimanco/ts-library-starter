@@ -18,8 +18,7 @@ module.exports = {
     {
       files: ['*.spec.ts', '*.test.ts'],
       rules: {
-        // You can customize the rules here.
-        // Test documents can be less strict.
+        '@typescript-eslint/prefer-ts-expect-error': 'off'
       }
     },
     {
