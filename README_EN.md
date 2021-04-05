@@ -172,6 +172,16 @@ All unnecessary rules or rules that may conflict with Prettier are turned off.
 - [JavaScript Standard Style](https://standardjs.com/)
 - [eslint-config-standard-with-typescript](https://github.com/standard/eslint-config-standard-with-typescript)
 
+Amendments to conflicting rules:  
+
+#### no-void
+
+The `@typescript-eslint/no-floating-promises` rule will prompt for a promise that is used alone "Promises must be handled appropriately or explicitly marked as ignored with the `void` operator.", but adding `void` will report an error due to the `no-void` rule, so `allowAsStatement: true` is added to `no-void` to resolve this conflict.  
+
+#### @typescript-eslint/prefer-ts-expect-error
+
+`@typescript-eslint/prefer-ts-expect-error` will change the comment of `@ts-ignore` to `@ts-expect-error`, which will be recognized as an error when jest is running, thus affecting the test results. So turn it off.  
+
 ### Skip Guide Program
 
 In the following two cases, the guide program will not ask questions, and all use the default configuration.  

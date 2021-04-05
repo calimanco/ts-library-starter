@@ -17,9 +17,7 @@ module.exports = {
     },
     {
       files: ['*.spec.ts', '*.test.ts'],
-      rules: {
-        '@typescript-eslint/prefer-ts-expect-error': 'off'
-      }
+      rules: {}
     },
     {
       files: ['*.md'],

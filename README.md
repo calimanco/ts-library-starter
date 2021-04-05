@@ -165,10 +165,20 @@ const library = require('your-library-name')
 ### 代码规范
 
 采用了 `JavaScript Standard Style` 规范，对于 Typescript 文件使用了 `eslint-config-standard-with-typescript` 扩展规范。  
-关闭了所有不必要的或可能与 Prettier 冲突的规则。
+关闭了所有不必要的或可能与 Prettier 冲突的规则。  
 
 - [JavaScript Standard Style](https://standardjs.com/)
 - [eslint-config-standard-with-typescript](https://github.com/standard/eslint-config-standard-with-typescript)
+
+冲突规则的修正说明：  
+
+#### no-void
+
+`@typescript-eslint/no-floating-promises` 规则对于单独使用的 promise 会提示，"Promises must be handled appropriately or explicitly marked as ignored with the `void` operator."。但添加了 `void` 又会因为 `no-void` 规则报错，因此给 `no-void` 添加了 `allowAsStatement: true` 以解决此冲突。  
+
+#### @typescript-eslint/prefer-ts-expect-error
+
+`@typescript-eslint/prefer-ts-expect-error` 会将 `@ts-ignore` 注释改为 `@ts-expect-error`，在 jest 运行的时候会被识别为错误，因此影响测试结果，故将它关闭。  
 
 ### 跳过引导程序的交互
 
