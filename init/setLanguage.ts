@@ -1,5 +1,5 @@
 import { ILangPkg, ILangPkgInfo } from './types'
-import * as prompt from 'prompt'
+import prompt from 'prompt'
 import * as colors from 'colors'
 import { setLangPkg } from './common'
 

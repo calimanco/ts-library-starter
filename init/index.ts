@@ -1,5 +1,5 @@
 import { ISetupConfig } from './types'
-import * as prompt from 'prompt'
+import prompt from 'prompt'
 import * as colors from 'colors'
 import * as which from 'which'
 import { execSync } from 'child_process'
