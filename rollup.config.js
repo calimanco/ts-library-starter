@@ -8,27 +8,28 @@ import { camelCase } from 'lodash'
 
 import pkg from './package.json'
 
-const libraryName = '--libraryname--'
+// If you want to customize the exposed package name, you can change it here.
+const libraryName = ''
 
 export default {
   input: `src/index.ts`,
   output: [
     {
       file: pkg.main,
-      name: camelCase(libraryName),
+      name: camelCase(libraryName || pkg.name),
       format: 'umd',
-      exports: 'named',
-      sourcemap: true
+      exports: 'auto',
+      sourcemap: false
     },
     {
       file: pkg.main.replace('.js', '.min.js'),
-      name: camelCase(libraryName),
+      name: camelCase(libraryName || pkg.name),
       format: 'umd',
-      exports: 'named',
+      exports: 'auto',
       sourcemap: false,
       plugins: [terser()]
     },
-    { file: pkg.module, format: 'es', sourcemap: true }
+    { file: pkg.module, format: 'es', sourcemap: false }
   ],
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
   external: [],
