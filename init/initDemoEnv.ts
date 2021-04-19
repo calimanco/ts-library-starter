@@ -1,7 +1,7 @@
 import { mkdirSync } from 'fs'
 import { execSync } from 'child_process'
 import { join } from 'path'
-import * as colors from 'colors'
+import colors from 'colors'
 import { getLang } from './common'
 
 export default async function initDemoEnv(): Promise<boolean> {

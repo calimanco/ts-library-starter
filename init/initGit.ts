@@ -1,5 +1,5 @@
 import { join } from 'path'
-import * as colors from 'colors'
+import colors from 'colors'
 import { execSync } from 'child_process'
 import { getLang } from './common'
 

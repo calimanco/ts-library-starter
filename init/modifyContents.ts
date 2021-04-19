@@ -1,6 +1,6 @@
-import * as path from 'path'
-import * as fs from 'fs'
-import * as colors from 'colors'
+import path from 'path'
+import fs from 'fs'
+import colors from 'colors'
 import { getLang } from './common'
 
 async function replaceInfile(

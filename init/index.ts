@@ -1,7 +1,7 @@
 import { ISetupConfig } from './types'
 import prompt from 'prompt'
-import * as colors from 'colors'
-import * as which from 'which'
+import colors from 'colors'
+import which from 'which'
 import { execSync } from 'child_process'
 import {
   readLangDir,
@@ -34,8 +34,6 @@ const setupConfig: ISetupConfig = {
   year: new Date().getFullYear().toString()
 }
 
-// @ts-ignore
-// eslint-disable-next-line no-import-assign
 prompt.message = ''
 prompt.start()
 

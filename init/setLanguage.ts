@@ -1,6 +1,6 @@
 import { ILangPkg, ILangPkgInfo } from './types'
 import prompt from 'prompt'
-import * as colors from 'colors'
+import colors from 'colors'
 import { setLangPkg } from './common'
 
 const properties: prompt.RevalidatorSchema[] = [

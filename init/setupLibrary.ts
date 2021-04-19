@@ -1,5 +1,5 @@
 import { ISetupConfig } from './types'
-import * as colors from 'colors'
+import colors from 'colors'
 import removeItems from './removeItems'
 import modifyContents from './modifyContents'
 import renameItems from './renameItems'

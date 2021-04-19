@@ -1,5 +1,5 @@
-import * as path from 'path'
-import * as colors from 'colors'
+import path from 'path'
+import colors from 'colors'
 import { rename } from 'fs'
 import { getLang } from './common'
 
