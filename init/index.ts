@@ -48,8 +48,12 @@ if (which.sync('git') == null) {
 }
 
 // 获取 git 的用户名和邮箱
-setupConfig.author = execSync('git config user.name').toString().trim()
-setupConfig.email = execSync('git config user.email').toString().trim()
+try {
+  setupConfig.author = execSync('git config user.name').toString().trim()
+  setupConfig.email = execSync('git config user.email').toString().trim()
+} catch (err) {
+  // do nothing
+}
 
 // 获取建议的库名
 setupConfig.libraryName = getLibraryNameSuggested()

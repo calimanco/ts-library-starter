@@ -15,14 +15,25 @@ export default async function initGit(
   const resultMsg: string[] = []
   const errMsg: string[] = []
 
-  const commands = [
-    `git init "${join(__dirname, '..')}"`,
-    `git add .gitignore`,
-    `git config --local user.name "${author}"`,
-    `git config --local user.email "${email}"`,
-    `git commit -m "${firstCommitMsg}"`,
-    `git branch -M "${branch}"`
-  ]
+  const commands = [`git init "${join(__dirname, '..')}"`, `git add .gitignore`]
+
+  if (author !== '') {
+    commands.push(`git config --local user.name "${author}"`)
+  }
+
+  if (email !== '') {
+    commands.push(`git config --local user.email "${email}"`)
+  }
+
+  if (firstCommitMsg !== '') {
+    commands.push(`git commit -m "${firstCommitMsg}"`)
+  } else {
+    commands.push(`git commit -m "no message"`)
+  }
+
+  if (branch !== '') {
+    commands.push(`git branch -M "${branch}"`)
+  }
 
   if (remote != null && remote.length > 0) {
     commands.push(`git remote add origin "${remote}"`)
