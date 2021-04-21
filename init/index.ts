@@ -19,7 +19,7 @@ import setupLibrary from './setupLibrary'
 import { langDir } from './config'
 
 // 清屏
-process.stdin.write('\x1B[2J\x1B[0f')
+console.clear()
 
 const setupConfig: ISetupConfig = {
   libraryName: '',
