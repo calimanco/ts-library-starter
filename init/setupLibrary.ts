@@ -1,5 +1,5 @@
 import { ISetupConfig } from './types'
-import colors from 'colors'
+import chalk from 'chalk'
 import removeItems from './removeItems'
 import modifyContents from './modifyContents'
 import renameItems from './renameItems'
@@ -26,11 +26,11 @@ export default async function setupLibrary(
   } = setupConfig
 
   // 打印配置
-  console.group(colors.underline.white(`${getLang(1)}`))
+  console.group(chalk.underline(`${getLang(1)}`))
   for (const key of Object.keys(setupConfig) as Array<
     keyof typeof setupConfig
   >) {
-    console.log(colors.reset(`${key}: ${setupConfig[key] as string}`))
+    console.log(`${key}: ${setupConfig[key] as string}`)
   }
   console.groupEnd()
   console.log('')
@@ -93,9 +93,9 @@ export default async function setupLibrary(
     isInitGitFinished &&
     isFinalizeFinished
   ) {
-    console.log(colors.cyan(getLang(14)))
+    console.log(chalk.cyan(getLang(14)))
   } else {
-    console.log(colors.yellow(getLang(15)))
+    console.log(chalk.yellow(getLang(15)))
   }
   console.log('')
   console.log(getLang(32))

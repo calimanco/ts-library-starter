@@ -1,5 +1,5 @@
 import prompt from 'prompt'
-import colors from 'colors'
+import chalk from 'chalk'
 import { getLang } from './common'
 
 const properties: prompt.RevalidatorSchema[] = [
@@ -33,11 +33,11 @@ export default async function setLibraryName(
   defaultName: string
 ): Promise<{ libraryName: string; description: string; isDemoEnv: string }> {
   return await new Promise((resolve, reject) => {
-    properties[0].description = colors.cyan(getLang(8))
-    properties[0].message = colors.reset(getLang(9))
-    properties[1].description = colors.cyan(getLang(21))
-    properties[2].description = colors.cyan(getLang(27))
-    properties[2].message = colors.reset(getLang(23))
+    properties[0].description = chalk.cyan(getLang(8))
+    properties[0].message = getLang(9)
+    properties[1].description = chalk.cyan(getLang(21))
+    properties[2].description = chalk.cyan(getLang(27))
+    properties[2].message = getLang(23)
 
     if (defaultName != null) {
       properties[0].default = defaultName

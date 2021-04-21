@@ -1,5 +1,5 @@
 import { join } from 'path'
-import colors from 'colors'
+import chalk from 'chalk'
 import { execSync } from 'child_process'
 import { getLang } from './common'
 
@@ -55,14 +55,14 @@ export default async function initGit(
   }
 
   if (resultMsg.length !== 0) {
-    console.group(colors.underline.white(getLang(19)))
-    console.log(colors.green(resultMsg.join('\n')))
+    console.group(chalk.underline(getLang(19)))
+    console.log(chalk.green(resultMsg.join('\n')))
     console.groupEnd()
   }
 
   if (errMsg.length !== 0) {
-    console.group(colors.underline.red(getLang(20)))
-    console.log(colors.reset(errMsg.join('\n')))
+    console.group(chalk.underline.red(getLang(20)))
+    console.log(errMsg.join('\n'))
     console.groupEnd()
     isFinish = false
   }

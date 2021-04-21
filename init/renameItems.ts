@@ -1,5 +1,5 @@
 import path from 'path'
-import colors from 'colors'
+import chalk from 'chalk'
 import { rename } from 'fs'
 import { getLang } from './common'
 
@@ -51,14 +51,14 @@ export default async function renameItems(
   })
 
   if (resultMsg.length !== 0) {
-    console.group(colors.underline.white(getLang(3)))
-    console.log(colors.green(resultMsg.join('\n')))
+    console.group(chalk.underline(getLang(3)))
+    console.log(chalk.green(resultMsg.join('\n')))
     console.groupEnd()
   }
 
   if (errMsg.length !== 0) {
-    console.group(colors.underline.red(getLang(6)))
-    console.log(colors.reset(errMsg.join('\n')))
+    console.group(chalk.underline.red(getLang(6)))
+    console.log(errMsg.join('\n'))
     console.groupEnd()
     isFinish = false
   }

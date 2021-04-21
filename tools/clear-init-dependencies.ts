@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync } from 'fs'
 import { join } from 'path'
 
 const dependencyList = [
-  'colors',
+  'chalk',
   'prompt',
   'which',
   '@types/which',

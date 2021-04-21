@@ -1,5 +1,5 @@
 import prompt from 'prompt'
-import colors from 'colors'
+import chalk from 'chalk'
 import { getLang } from './common'
 
 const properties: prompt.RevalidatorSchema[] = [
@@ -26,9 +26,9 @@ export default async function setAuthorInfo(
   defaultEmail: string
 ): Promise<{ author: string; email: string }> {
   return await new Promise((resolve, reject) => {
-    properties[0].description = colors.cyan(getLang(11))
-    properties[1].description = colors.cyan(getLang(12))
-    properties[1].message = colors.reset(getLang(13))
+    properties[0].description = chalk.cyan(getLang(11))
+    properties[1].description = chalk.cyan(getLang(12))
+    properties[1].message = getLang(13)
 
     if (defaultAuthor != null) {
       properties[0].default = defaultAuthor

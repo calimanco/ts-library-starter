@@ -1,5 +1,5 @@
 import path from 'path'
-import colors from 'colors'
+import chalk from 'chalk'
 import rmR from '../tools/rmR'
 import { getLang } from './common'
 
@@ -32,14 +32,14 @@ export default async function removeItems(rmItems: string[]): Promise<boolean> {
   })
 
   if (resultMsg.length !== 0) {
-    console.group(colors.underline.white(getLang(2)))
-    console.log(colors.red(resultMsg.join('\n')))
+    console.group(chalk.underline(getLang(2)))
+    console.log(chalk.red(resultMsg.join('\n')))
     console.groupEnd()
   }
 
   if (errMsg.length !== 0) {
-    console.group(colors.underline.red(getLang(5)))
-    console.log(colors.reset(errMsg.join('\n')))
+    console.group(chalk.underline.red(getLang(5)))
+    console.log(errMsg.join('\n'))
     console.groupEnd()
     isFinish = false
   }

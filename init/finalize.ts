@@ -1,7 +1,7 @@
 import { ISetupConfig } from './types'
 import path from 'path'
 import fs from 'fs'
-import colors from 'colors'
+import chalk from 'chalk'
 import { getLang } from './common'
 
 async function modifyPkgFile(setupConfig?: ISetupConfig): Promise<string> {
@@ -79,14 +79,14 @@ export default async function finalize(
   })
 
   if (resultMsg.length !== 0) {
-    console.group(colors.underline.white(getLang(24)))
-    console.log(colors.blue(resultMsg.join('\n')))
+    console.group(chalk.underline(getLang(24)))
+    console.log(chalk.blue(resultMsg.join('\n')))
     console.groupEnd()
   }
 
   if (errMsg.length !== 0) {
-    console.group(colors.underline.red(getLang(25)))
-    console.log(colors.reset(errMsg.join('\n')))
+    console.group(chalk.underline.red(getLang(25)))
+    console.log(errMsg.join('\n'))
     console.groupEnd()
     isFinish = false
   }

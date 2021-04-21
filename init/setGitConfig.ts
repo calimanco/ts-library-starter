@@ -1,5 +1,5 @@
 import prompt from 'prompt'
-import colors from 'colors'
+import chalk from 'chalk'
 import { getLang } from './common'
 
 const properties: prompt.RevalidatorSchema[] = [
@@ -41,11 +41,11 @@ export default async function setGitConfig(): Promise<{
   isPush: string
 }> {
   return await new Promise((resolve, reject) => {
-    properties[0].description = colors.cyan(getLang(16))
-    properties[1].description = colors.cyan(getLang(17))
-    properties[2].description = colors.cyan(getLang(18))
-    properties[3].description = colors.cyan(getLang(22))
-    properties[3].message = colors.reset(getLang(23))
+    properties[0].description = chalk.cyan(getLang(16))
+    properties[1].description = chalk.cyan(getLang(17))
+    properties[2].description = chalk.cyan(getLang(18))
+    properties[3].description = chalk.cyan(getLang(22))
+    properties[3].message = getLang(23)
 
     prompt.get(properties, (err: any, res: any) => {
       if (err != null) {

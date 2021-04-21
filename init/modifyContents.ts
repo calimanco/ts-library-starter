@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'fs'
-import colors from 'colors'
+import chalk from 'chalk'
 import { getLang } from './common'
 
 async function replaceInfile(
@@ -64,14 +64,14 @@ export default async function modifyContents(
   })
 
   if (resultMsg.length !== 0) {
-    console.group(colors.underline.white(getLang(4)))
-    console.log(colors.yellow(resultMsg.join('\n')))
+    console.group(chalk.underline(getLang(4)))
+    console.log(chalk.yellow(resultMsg.join('\n')))
     console.groupEnd()
   }
 
   if (errMsg.length !== 0) {
-    console.group(colors.underline.red(getLang(7)))
-    console.log(colors.reset(errMsg.join('\n')))
+    console.group(chalk.underline.red(getLang(7)))
+    console.log(errMsg.join('\n'))
     console.groupEnd()
     isFinish = false
   }

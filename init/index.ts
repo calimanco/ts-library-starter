@@ -1,6 +1,6 @@
 import { ISetupConfig } from './types'
 import prompt from 'prompt'
-import colors from 'colors'
+import chalk from 'chalk'
 import which from 'which'
 import { execSync } from 'child_process'
 import {
@@ -40,7 +40,7 @@ prompt.start()
 // 检查 git 支持。
 if (which.sync('git') == null) {
   console.log(
-    colors.red(
+    chalk.red(
       'Sorry, this script requires git. Please make sure you have git and re-run "npm install".'
     )
   )
@@ -62,12 +62,12 @@ void main()
 
 async function main(): Promise<void> {
   // 读取语言包
-  console.log(colors.cyan(`Loading language packages...`))
+  console.log(chalk.cyan(`Loading language packages...`))
   const langPkgList = await readLangDir(langDir)
 
   // 检查是否是跳过询问。
   if (isSkipAsking()) {
-    console.log(colors.cyan(`Skip asking question`))
+    console.log(chalk.cyan(`Skip asking question`))
     await setLangPkg(langPkgList[0])
     await setupLibrary(setupConfig)
     process.exit(0)
@@ -79,7 +79,7 @@ async function main(): Promise<void> {
     await setLanguage(langPkgList)
 
     // 欢迎语
-    console.log(colors.magenta(`\n${getLang(0)}\n`))
+    console.log(chalk.magenta.bgWhite(`${getLang(0)}`))
 
     // 设置库名
     const { libraryName, description, isDemoEnv } = await setLibraryConfig(
