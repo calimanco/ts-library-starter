@@ -79,7 +79,7 @@ async function main(): Promise<void> {
     await setLanguage(langPkgList)
 
     // 欢迎语
-    console.log(chalk.magenta.bgWhite(`${getLang(0)}`))
+    console.log(`\n${getLang(0)}\n`)
 
     // 设置库名
     const { libraryName, description, isDemoEnv } = await setLibraryConfig(
@@ -110,6 +110,7 @@ async function main(): Promise<void> {
 
   // 执行阶段
   try {
+    console.log('')
     await setupLibrary(setupConfig)
   } catch (error) {
     console.error(getLang(26), error)

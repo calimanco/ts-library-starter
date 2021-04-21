@@ -80,7 +80,7 @@ export default async function finalize(
 
   if (resultMsg.length !== 0) {
     console.group(chalk.underline(getLang(24)))
-    console.log(chalk.blue(resultMsg.join('\n')))
+    console.log(chalk.green(resultMsg.join('\n')))
     console.groupEnd()
   }
 
