@@ -65,9 +65,16 @@ async function main(): Promise<void> {
   console.log(chalk.cyan(`Loading language packages...`))
   const langPkgList = await readLangDir(langDir)
 
+  if (process.argv.includes('--debug')) {
+    console.log(chalk.yellow(`Debug Mode.`))
+    process.env.DEBUG = 'on'
+  } else {
+    process.env.DEBUG = 'off'
+  }
+
   // 检查是否是跳过询问。
   if (isSkipAsking()) {
-    console.log(chalk.cyan(`Skip asking question`))
+    console.log(chalk.cyan(`Skip asking question.`))
     await setLangPkg(langPkgList[0])
     await setupLibrary(setupConfig)
     process.exit(0)
