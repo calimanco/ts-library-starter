@@ -53,6 +53,18 @@ export async function readLangDir(name: string): Promise<ILangPkgInfo[]> {
   return result
 }
 
+export function isDebug(): boolean {
+  if (process.env.CI != null || process.argv.includes('--debug')) {
+    return true
+  }
+
+  if (typeof process.env.npm_config_argv !== 'undefined') {
+    const npmConfigArgv = JSON.parse(process.env.npm_config_argv)
+    return npmConfigArgv.original?.includes('--debug')
+  }
+  return false
+}
+
 export function isSkipAsking(): boolean {
   if (process.env.CI != null || process.argv.includes('-y')) {
     return true
@@ -60,10 +72,7 @@ export function isSkipAsking(): boolean {
 
   if (typeof process.env.npm_config_argv !== 'undefined') {
     const npmConfigArgv = JSON.parse(process.env.npm_config_argv)
-    return (
-      npmConfigArgv.original != null &&
-      npmConfigArgv.original.indexOf('-y') > -1
-    )
+    return npmConfigArgv.original?.includes('-y')
   }
   return false
 }

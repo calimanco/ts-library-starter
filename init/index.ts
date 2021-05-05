@@ -8,7 +8,8 @@ import {
   isSkipAsking,
   getLang,
   getLibraryNameSuggested,
-  setLangPkg
+  setLangPkg,
+  isDebug
 } from './common'
 
 import setLanguage from './setLanguage'
@@ -65,7 +66,7 @@ async function main(): Promise<void> {
   console.log(chalk.cyan(`Loading language packages...`))
   const langPkgList = await readLangDir(langDir)
 
-  if (process.argv.includes('--debug')) {
+  if (isDebug()) {
     console.log(chalk.yellow(`Debug Mode.`))
     process.env.DEBUG = 'on'
   } else {
