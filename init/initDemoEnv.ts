@@ -24,7 +24,7 @@ export default async function initDemoEnv(): Promise<boolean> {
     isFinish = false
   }
   if (process.env.DEBUG === 'on') {
-    console.log(log.toString())
+    console.log('Print error of initDemoEnv.', log)
   }
   return isFinish
 }
