@@ -6,13 +6,13 @@ import { getLang } from './common'
 
 export default async function initDemoEnv(): Promise<boolean> {
   let isFinish = true
+  let log = ''
 
   try {
     console.log(getLang(30))
-    const log = execSync('npm i play-anywhere --save-dev --no-package-lock')
-    if (process.env.DEBUG === 'on') {
-      console.log(log.toString())
-    }
+    log = execSync(
+      'npm i play-anywhere --save-dev --no-package-lock'
+    ).toString()
     mkdirSync(join(__dirname, '..', 'demos'))
     console.group(chalk.underline(getLang(31)))
     console.log(chalk.green(getLang(28)))
@@ -22,6 +22,9 @@ export default async function initDemoEnv(): Promise<boolean> {
     console.log(err.message)
     console.groupEnd()
     isFinish = false
+  }
+  if (process.env.DEBUG === 'on') {
+    console.log(log.toString())
   }
   return isFinish
 }
