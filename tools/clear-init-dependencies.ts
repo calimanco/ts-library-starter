@@ -25,7 +25,7 @@ try {
   }, '')
   console.log('Cleaning up dependencies, please wait...')
   // run npm
-  execSync(`npm uninstall${listStr}`)
+  execSync(`npm uninstall${listStr} --no-audit`)
   // edit package.json
   pkg = JSON.parse(readFileSync(jsonPackage).toString())
   delete pkg.scripts['clear-init-dependencies']

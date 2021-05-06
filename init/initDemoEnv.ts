@@ -11,7 +11,7 @@ export default async function initDemoEnv(): Promise<boolean> {
   try {
     console.log(getLang(30))
     log = execSync(
-      'npm i play-anywhere --save-dev --no-package-lock'
+      'npm i play-anywhere --save-dev --no-package-lock  --no-audit'
     ).toString()
     mkdirSync(join(__dirname, '..', 'demos'))
     console.group(chalk.underline(getLang(31)))
