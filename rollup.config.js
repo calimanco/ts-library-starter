@@ -52,7 +52,7 @@ export default {
       tsconfigOverride: {
         compilerOptions: {
           removeComments: true,
-          module: 'ES2015'
+          module: 'ES6'
         }
       }
     }),
