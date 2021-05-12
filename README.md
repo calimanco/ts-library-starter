@@ -43,7 +43,7 @@ const library = require('your-library-name')
 ## 特性
 
 - 引导程序支持多语言。现有中文和英文，更多语言可以轻松添加。
-- 脚本均支持跨平台。
+- 脚本均支持跨平台（仅在 Win10 和 Mac 系统测试）。
 - 零配置，引导程序会自动完成配置（所有选项都有默认值）。
 - 使用 Prettier 和 ESLint 保证代码质量。
 - 使用 Jest 进行单元测试，并输出覆盖率报告，发布到 Coveralls。
