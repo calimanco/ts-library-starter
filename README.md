@@ -56,19 +56,19 @@ const library = require('your-library-name')
 
 ## NPM 命令
 
-- `npm run lint`  对 src 和 test 目录进行静态代码检查。
-- `npm run lint:md`  对目录下的所有 Markdown 文件进行静态代码检查。
-- `npm run build`  先移除 dist 目录，再进行编译和打包, 并生成文档。
-- `npm start` / `npm run start` / `npm run dev`  在"watch"模式下运行`npm run build`。
-- `npm test`/`npm run test`  运行测试套件，并生成单测覆盖率报告。
-- `npm run test:watch`  在 [interactive watch mode](http://facebook.github.io/jest/docs/cli.html#watch) 下运行测试套件。
-- `npm run test:prod`  先运行`npm run lint`，再进行测试，并生成单测覆盖率报告（无缓存）。
-- `npm run deploy-docs`  将文档部署到 gh-pages，建议仅集成环境里使用，详细见 [自动集成](#travis)。
-- `npm run report-coverage`  将单测覆盖率报告提交到 coveralls，建议仅集成环境里使用，详细见 [自动集成](#travis)。
-- `npm run commit`  先对 git 暂存区的改动文件进行静态代码检查，再进行语义化提交。
-- `npm run semantic-release`  将 git 的主分支进行发布，建议仅集成环境里使用，详细见 [自动集成](#travis)。
-- `npm run compiled`  进行 TypeScript 的编译并输出结果（非打包）。
-- `npm run dev:web`  运行 demo 展示（可选）。
+- `npm run lint` 对 src 和 test 目录进行静态代码检查。
+- `npm run lint:md` 对目录下的所有 Markdown 文件进行静态代码检查。
+- `npm run build` 先移除 dist 目录，再进行编译和打包, 并生成文档。
+- `npm start` / `npm run start` / `npm run dev` 在"watch"模式下运行`npm run build`。
+- `npm test`/`npm run test` 运行测试套件，并生成单测覆盖率报告。
+- `npm run test:watch` 在 [interactive watch mode](http://facebook.github.io/jest/docs/cli.html#watch) 下运行测试套件。
+- `npm run test:prod` 先运行`npm run lint`，再进行测试，并生成单测覆盖率报告（无缓存）。
+- `npm run deploy-docs` 将文档部署到 gh-pages，建议仅集成环境里使用，详细见 [自动集成](#travis)。
+- `npm run report-coverage` 将单测覆盖率报告提交到 coveralls，建议仅集成环境里使用，详细见 [自动集成](#travis)。
+- `npm run commit` 先对 git 暂存区的改动文件进行静态代码检查，再进行语义化提交。
+- `npm run semantic-release` 将 git 的主分支进行发布，建议仅集成环境里使用，详细见 [自动集成](#travis)。
+- `npm run compiled` 进行 TypeScript 的编译并输出结果（非打包）。
+- `npm run dev:web` 运行 demo 展示（可选）。
 
 ## 引导程序（命令行）
 
@@ -89,10 +89,10 @@ const library = require('your-library-name')
 
 ### 默认值
 
-- `libraryName`  库名，来自对库所在文件夹名的"kebabCase"转换，比如"MyProgram"会被转换为"my-program"。
-- `author`  作者，来自运行 `git config user.name` 的输出。
-- `email`  邮箱，来自运行`git config user.email` 的输出。
-- `branch`  主分支名，Github 的建议叫 main。
+- `libraryName` 库名，来自对库所在文件夹名的"kebabCase"转换，比如"MyProgram"会被转换为"my-program"。
+- `author` 作者，来自运行 `git config user.name` 的输出。
+- `email` 邮箱，来自运行`git config user.email` 的输出。
+- `branch` 主分支名，Github 的建议叫 main。
 
 ### 增加语言支持
 
@@ -111,9 +111,9 @@ const library = require('your-library-name')
 
 采用 Rollup 作为打包的程序，已经配置了常用的插件。默认会在 dist 目录下生成下列文件：
 
-- `yourLibraryName.umd.js`  兼容 amd、cjs 和 iife，未压缩，有 sourcemap。
-- `yourLibraryName.umd.min.js`  兼容 amd、cjs 和 iife，已压缩，无 sourcemap。
-- `yourLibraryName.es6.js`  ES 模块文件，未压缩，有 sourcemap。
+- `yourLibraryName.umd.js` 兼容 amd、cjs 和 iife，未压缩，有 sourcemap。
+- `yourLibraryName.umd.min.js` 兼容 amd、cjs 和 iife，已压缩，无 sourcemap。
+- `yourLibraryName.es6.js` ES 模块文件，未压缩，有 sourcemap。
 
 ## 自动集成（Travis）
 
@@ -128,28 +128,28 @@ const library = require('your-library-name')
 - [Coveralls](https://coveralls.io/)
 
 需要如下几个环境变量，请将他们写入集成环境中。  
-如果你想要在本地运行相关命令，也是需要的。  
+如果你想要在本地运行相关命令，也是需要的。
 
-- NPM_TOKEN  通过 NPM 获取，用于 `npm run semantic-release`。
-- COVERALLS_REPO_TOKEN  通过 Coveralls 获取，用于 `npm run report-coverage`。
-- GH_TOKEN  通过 Github 获取，用于 `npm run deploy-docs`。
+- NPM_TOKEN 通过 NPM 获取，用于 `npm run semantic-release`。
+- COVERALLS_REPO_TOKEN 通过 Coveralls 获取，用于 `npm run report-coverage`。
+- GH_TOKEN 通过 Github 获取，用于 `npm run deploy-docs`。
 
 ### 启动
 
 只需要有提交代码到 Github 就会自动被 Travis 拉取并运行。  
-也可以手动在 Travis 里手动触发。  
+也可以手动在 Travis 里手动触发。
 
 ### 文档部署
 
 自动生成的文档会部署到 Github 仓库的 gh-pages 分支，并且开启了 GitHub Pages 的功能，整个分支将成为一个静态网页。  
-默认不会公开，可通过`https://<yourGithubName>.github.io/{yourLibraryName}` 访问。  
+默认不会公开，可通过`https://<yourGithubName>.github.io/{yourLibraryName}` 访问。
 
 ### 发布
 
 自动发布是需要满足一定条件的，依据提交时的提交信息进行判断，具体判断参考 [semantic-release](https://github.com/semantic-release/semantic-release) 。  
-建议使用 `npm run commit` 进行语义化提交，它能引导您自动生成符合规范的提交信息。  
+建议使用 `npm run commit` 进行语义化提交，它能引导您自动生成符合规范的提交信息。
 
-发布操作如下：  
+发布操作如下：
 
 - 自动发布到 NPM；
 - 创建版本 Tag；
@@ -165,31 +165,31 @@ const library = require('your-library-name')
 ### 代码规范
 
 采用了 `JavaScript Standard Style` 规范，对于 Typescript 文件使用了 `eslint-config-standard-with-typescript` 扩展规范。  
-关闭了所有不必要的或可能与 Prettier 冲突的规则。  
+关闭了所有不必要的或可能与 Prettier 冲突的规则。
 
 - [JavaScript Standard Style](https://standardjs.com/)
 - [eslint-config-standard-with-typescript](https://github.com/standard/eslint-config-standard-with-typescript)
 
-冲突规则的修正说明：  
+冲突规则的修正说明：
 
 #### no-void
 
-`@typescript-eslint/no-floating-promises` 规则对于单独使用的 promise 会提示，"Promises must be handled appropriately or explicitly marked as ignored with the `void` operator."。但添加了 `void` 又会因为 `no-void` 规则报错，因此给 `no-void` 添加了 `allowAsStatement: true` 以解决此冲突。  
+`@typescript-eslint/no-floating-promises` 规则对于单独使用的 promise 会提示，"Promises must be handled appropriately or explicitly marked as ignored with the `void` operator."。但添加了 `void` 又会因为 `no-void` 规则报错，因此给 `no-void` 添加了 `allowAsStatement: true` 以解决此冲突。
 
 #### @typescript-eslint/prefer-ts-expect-error
 
-`@typescript-eslint/prefer-ts-expect-error` 会将 `@ts-ignore` 注释改为 `@ts-expect-error`，在 jest 运行的时候会被识别为错误，因此影响测试结果，故将它关闭。  
+`@typescript-eslint/prefer-ts-expect-error` 会将 `@ts-ignore` 注释改为 `@ts-expect-error`，在 jest 运行的时候会被识别为错误，因此影响测试结果，故将它关闭。
 
 ### 跳过引导程序的交互
 
-以下两种情况，引导程序将不会进行提问，全部使用默认进行配置。  
+以下两种情况，引导程序将不会进行提问，全部使用默认进行配置。
 
 - 当 `process.env.CI` 会有值时，这种情况一般出现在被某些脚手架工具调用去情况。
 - 使用 `npm install -y` 进行安装。
 
 ### 清理依赖
 
-您可以轻松地清理掉引导程序的依赖。  
+您可以轻松地清理掉引导程序的依赖。
 
 ```bash
 npm run clear-init-dependencies
@@ -200,6 +200,11 @@ npm run clear-init-dependencies
 ### Demo 环境
 
 这是可选的功能，如果未在初始化时安装，请参考 `play-anywhere` [文档](https://github.com/calimanco/play-anywhere) 。
+
+### 关于 tslib
+
+TypeScript 的公共运行库 tslib 将作为 dependencies 安装。  
+如果您开发的库运行环境为 nodeJS，可以添加 tslib 到 rollup.config 的 external，减小包体积；如果您开发的库运行环境为浏览器，则无需改变，tslib 按需引入的部分将会一起打包。
 
 ## 许可证
 
